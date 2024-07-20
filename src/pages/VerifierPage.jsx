@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import {
-  IoPeopleOutline,
-  IoShieldCheckmarkOutline,
-  IoNewspaperOutline,
-} from "react-icons/io5";
+import { IoNewspaperOutline, IoPeopleOutline } from "react-icons/io5";
 import DashboardLayout from "../components/common/DashboardLayout";
 
-const AdminPage = () => {
+const VerifierPage = () => {
   const [activePage, setActivePage] = useState("employee");
 
   const menuItems = [
@@ -16,35 +12,27 @@ const AdminPage = () => {
       onClick: () => setActivePage("employee"),
     },
     {
-      name: "Verifier",
-      icon: IoShieldCheckmarkOutline,
-      onClick: () => setActivePage("verifier"),
-    },
-    {
       name: "Permission",
       icon: IoNewspaperOutline,
       onClick: () => setActivePage("permission"),
     },
   ];
-  const renderAdminPage = () => {
+  const renderVerifierPage = () => {
     switch (activePage) {
       case "employee":
         return <p>Employee</p>;
-      case "verifier":
-        return <p>History</p>;
       case "permission":
-        return <p>Payroll</p>;
+        return <p>Permission</p>;
       default:
         return null;
     }
   };
-
   return (
     <DashboardLayout
       menuItems={menuItems}
-      renderedPage={() => renderAdminPage()}
+      renderedPage={() => renderVerifierPage()}
     />
   );
 };
 
-export default AdminPage;
+export default VerifierPage;

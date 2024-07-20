@@ -2,10 +2,10 @@ import { Box, Icon, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MenuDashboard = (props) => {
+const SidebarMenu = ({ onClick, icon, name }) => {
   return (
     <Box w="100%">
-      <Link as="button" onClick={props.onClick}>
+      <Link as="button" onClick={onClick}>
         <Box
           display="flex"
           alignItems="center"
@@ -14,14 +14,14 @@ const MenuDashboard = (props) => {
           bg="brand.primary900"
           _hover={{ bg: "brand.primary800" }}
         >
-          <Icon as={props.icon} w={6} h={6} />
+          <Icon as={icon} w={6} h={6} />
           <Text
             display={{ base: "none", md: "block" }}
             fontSize={{ base: "lg", md: "18" }}
             fontWeight="bold"
             ml={2}
           >
-            {props.name}
+            {name}
           </Text>
         </Box>
       </Link>
@@ -29,4 +29,4 @@ const MenuDashboard = (props) => {
   );
 };
 
-export default MenuDashboard;
+export default SidebarMenu;

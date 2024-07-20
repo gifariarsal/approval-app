@@ -1,6 +1,6 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
 import React from "react";
-import MenuDashboard from "./MenuDashboard";
+import SidebarMenu from "./SidebarMenu";
 import Navbar from "./Navbar";
 
 const DashboardLayout = ({ menuItems, renderedPage }) => {
@@ -19,7 +19,7 @@ const DashboardLayout = ({ menuItems, renderedPage }) => {
         >
           <Stack w="full" spacing="2" direction={{ base: "row", md: "column" }}>
             {menuItems.map(({ name, icon, onClick }) => (
-              <MenuDashboard
+              <SidebarMenu
                 key={name}
                 onClick={() => onClick()}
                 icon={icon}
