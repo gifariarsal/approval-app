@@ -1,16 +1,18 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
 import React from "react";
 import MenuDashboard from "./MenuDashboard";
+import Navbar from "./Navbar";
 
 const DashboardLayout = ({ menuItems, renderedPage }) => {
   return (
     <Box>
+      <Navbar />
       <Flex flexDir={{ base: "column", md: "row" }}>
         <Box
           pos="fixed"
           zIndex={10}
           w={{ base: "100%", md: "280px" }}
-          bg="#0B162E"
+          bg="brand.primary900"
           color="brand.primary50"
           minH={{ md: "100vh" }}
           mt="60px"

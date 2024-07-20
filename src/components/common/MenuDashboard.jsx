@@ -11,8 +11,8 @@ const MenuDashboard = (props) => {
           alignItems="center"
           justifyContent={{ base: "center", md: "flex-start" }}
           p={4}
-          bg="#0B162E"
-          _hover={{ bg: "#253559" }}
+          bg="brand.primary900"
+          _hover={{ bg: "brand.primary800" }}
         >
           <Icon as={props.icon} w={6} h={6} />
           <Text
