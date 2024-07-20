@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Image,
   Input,
@@ -10,124 +9,103 @@ import {
   InputRightElement,
   Text,
   useToast,
-} from '@chakra-ui/react';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
-import MainButton from '../components/buttons/MainButton';
-// import { login } from '../redux/reducer/AuthReducer';
-import Logo from '../assets/react.svg';
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+import MainButton from "../components/buttons/MainButton";
+import { login } from "../redux/reducer/authSlice";
+import Logo from "../assets/react.svg";
+import useInput from "../hooks/useInput";
+import useTogglePassword from "../hooks/useTooglePassword";
 
 const LoginPage = () => {
-  const [show, setShow] = useState(false);
+  const [email, onEmailChange] = useInput("");
+  const [password, onPasswordChange] = useInput("");
+  const [show, handleTogglePassword] = useTogglePassword();
   const [loading, setLoading] = useState(false);
+
   const toast = useToast();
   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
-  const handleClick = () => setShow(!show);
+  const dispatch = useDispatch();
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .required('Email is required')
-      .email('Invalid email format'),
-    password: Yup.string().required('Password is required'),
-  });
-
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema: LoginSchema,
-    onSubmit: (values) => {
-      //   dispatch(login(values, setLoading, toast, navigate));
-    },
-  });
+  const onLogin = () => {
+    dispatch(login(email, password, setLoading, toast, navigate));
+  };
 
   return (
     <Box
-      display={'flex'}
-      justifyContent={'center'}
-      alignItems={'center'}
-      h={'100vh'}
-      bg={'#F1FAFF'}
+      display={"flex"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      h={"100vh"}
+      bg={"#F1FAFF"}
     >
       <Box
-        bg={'white'}
-        boxShadow={'lg'}
-        rounded={'2xl'}
-        w={{ base: '80vw', md: '60vw', lg: '40vw' }}
+        bg={"white"}
+        boxShadow={"lg"}
+        rounded={"2xl"}
+        w={{ base: "80vw", md: "60vw", lg: "40vw" }}
       >
         <Box
           mt={8}
-          display={'flex'}
-          flexDir={'column'}
-          alignItems={'center'}
+          display={"flex"}
+          flexDir={"column"}
+          alignItems={"center"}
           gap={4}
         >
-          <Image w={{ base: '150px', md: '200px' }} src={Logo} alt="logo" />
+          <Image w={{ base: "150px", md: "200px" }} src={Logo} alt="logo" />
           <Text
-            fontSize={{ base: '2xl', md: '3xl' }}
-            color={'brand.main'}
-            fontWeight={'bold'}
+            fontSize={{ base: "2xl", md: "3xl" }}
+            color={"brand.main"}
+            fontWeight={"bold"}
           >
             Log In
           </Text>
         </Box>
-        <Box w={'full'} spacing={'4'} p={8}>
-          <form onSubmit={formik.handleSubmit}>
-            <FormControl
-              isRequired
-              isInvalid={formik.touched.email && formik.errors.email}
-            >
+        <Box w={"full"} spacing={"4"} p={8}>
+          <form>
+            <FormControl isRequired>
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 id="email"
                 type="email"
-                rounded={'lg'}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
+                placeholder="Enter your email"
+                rounded="lg"
+                value={email}
+                onChange={onEmailChange}
               />
-              {formik.touched.email && formik.errors.email && (
-                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-              )}
             </FormControl>
-            <FormControl
-              isRequired
-              isInvalid={formik.touched.password && formik.errors.password}
-            >
-              <FormLabel htmlFor="password" mt={'4'}>
-                Password
-              </FormLabel>
+            <FormControl isRequired mt="4">
+              <FormLabel htmlFor="password">Password</FormLabel>
               <InputGroup>
                 <Input
                   id="password"
                   name="password"
-                  type={show ? 'text' : 'password'}
-                  rounded={'lg'}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.password}
+                  placeholder="Enter your password"
+                  type={show ? "text" : "password"}
+                  rounded="lg"
+                  value={password}
+                  onChange={onPasswordChange}
                 />
                 <InputRightElement width="3.5rem">
-                  <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    title="Show/Hide Password"
+                    onClick={handleTogglePassword}
+                  >
                     {show ? (
-                      <IoEyeOffOutline size={'20px'} />
+                      <IoEyeOffOutline size="20px" />
                     ) : (
-                      <IoEyeOutline size={'20px'} />
+                      <IoEyeOutline size="20px" />
                     )}
                   </Button>
                 </InputRightElement>
               </InputGroup>
-              {formik.touched.password && formik.errors.password && (
-                <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
-              )}
             </FormControl>
-            <MainButton content="Sign In" loading={loading} />
+            <MainButton content="Login" onClick={onLogin} loading={loading} />
           </form>
         </Box>
       </Box>
