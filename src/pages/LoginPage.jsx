@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/reducer/authSlice";
 import AuthLayout from "../components/auth/AuthLayout";
-import LoginForm from "../components/auth/LoginForm";
+import AuthForm from "../components/auth/AuthForm";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ const LoginPage = () => {
 
   return (
     <AuthLayout title="Login">
-      <LoginForm onLogin={onLogin} loading={loading} />
+      <AuthForm onAuth={onLogin} loading={loading} />
     </AuthLayout>
   );
 };

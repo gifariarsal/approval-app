@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
+import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess, setUser } from "./redux/reducer/authSlice";
+import { LoginPage, RegisterPage } from "./pages";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,7 +27,12 @@ function App() {
 
   return (
     <Routes>
-      {!login && <Route path="/" element={<LoginPage />} />}
+      {!login && (
+        <>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </>
+      )}
       {login && user.level === 1 && (
         <Route path="/admin" element={<h1>Admin Dashboard</h1>} />
       )}

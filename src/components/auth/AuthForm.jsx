@@ -1,24 +1,60 @@
 import {
+  Box,
   Button,
   FormControl,
   FormLabel,
   Input,
   InputGroup,
   InputRightElement,
+  Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import useTogglePassword from "../../hooks/useTooglePassword";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import MainButton from "../buttons/MainButton";
 
-const LoginForm = ({ onLogin, loading }) => {
+const AuthForm = ({ onAuth, loading }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [name, onNameChange] = useInput("");
   const [email, onEmailChange] = useInput("");
   const [password, onPasswordChange] = useInput("");
   const [show, handleTogglePassword] = useTogglePassword();
 
+  const handleAuth = () => {
+    if (location.pathname === "/register") {
+      onAuth({ name, email, password });
+    } else {
+      onAuth({ email, password });
+    }
+  };
+
+  const handleNavigate = () => {
+    if (location.pathname === "/register") {
+      navigate("/");
+    } else {
+      navigate("/register");
+    }
+  };
+
   return (
     <form>
+      {location.pathname === "/register" && (
+        <FormControl isRequired mb="4">
+          <FormLabel htmlFor="name">Name</FormLabel>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Enter your name"
+            rounded="lg"
+            value={name}
+            onChange={onNameChange}
+          />
+        </FormControl>
+      )}
       <FormControl isRequired>
         <FormLabel htmlFor="email">Email</FormLabel>
         <Input
@@ -59,13 +95,25 @@ const LoginForm = ({ onLogin, loading }) => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
+      <Button variant="link" onClick={handleNavigate}>
+        <Text
+          mt={6}
+          fontSize="sm"
+          fontWeight={400}
+          _hover={{ textDecoration: "underline" }}
+        >
+          {location.pathname === "/register"
+            ? "Already have an account?"
+            : "Don't have an account?"}
+        </Text>
+      </Button>
       <MainButton
-        content="Login"
-        onClick={() => onLogin({ email, password })}
+        content={location.pathname === "/register" ? "Register" : "Login"}
+        onClick={handleAuth}
         loading={loading}
       />
     </form>
   );
 };
 
-export default LoginForm;
+export default AuthForm;
