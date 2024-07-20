@@ -1,7 +1,7 @@
 import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 
-const DashboardPage = ({ title }) => {
+const DashboardPage = ({ title, children }) => {
   return (
     <Box
       w="full"
@@ -14,13 +14,13 @@ const DashboardPage = ({ title }) => {
         bg="brand.primary50"
         rounded={{ base: "lg", md: "xl" }}
         py={4}
-        px={6}
+        px={{ base: 3, md: 6 }}
       >
         <Text fontSize={{ base: "xl", lg: "2xl" }} fontWeight="semibold">
           {title}
         </Text>
-        <Box mt={4} w="full" h="full" bg="brand.primary50">
-          <Text>Dashboard</Text>
+        <Box mt={4} w="full" minH="calc(100vh - 120px)" bg="brand.primary50">
+          {children}
         </Box>
       </Box>
     </Box>

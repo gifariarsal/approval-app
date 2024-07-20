@@ -4,7 +4,7 @@ import AuthForm from "../components/auth/AuthForm";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../redux/reducer/userSlice";
+import { registerUser } from "../redux/reducer/authSlice";
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);

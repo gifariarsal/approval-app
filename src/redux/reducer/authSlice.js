@@ -35,6 +35,52 @@ export const authSlice = createSlice({
   },
 });
 
+export const registerUser = (
+  name,
+  email,
+  password,
+  setLoading,
+  toast,
+  navigate
+) => {
+  return async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post(`${URL_API}/register`, {
+        name,
+        email,
+        password,
+      });
+      console.log(res);
+
+      if (res.data.access_token) {
+        toast({
+          title: "Register Success",
+          description: res?.data?.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        navigate("/");
+      } else {
+        throw new Error(
+          res?.data?.message || "An error occurred while registering"
+        );
+      }
+    } catch (error) {
+      toast({
+        title: "Register Failed",
+        description: error.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+};
+
 export const login = (email, password, setLoading, toast, navigate) => {
   return async (dispatch) => {
     try {

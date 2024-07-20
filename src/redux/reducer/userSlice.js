@@ -3,65 +3,39 @@ import axios from "axios";
 const URL_API = "https://catatan.sidak.co.id/api";
 
 const initialState = {
-  employee: [],
+  employees: [],
 };
 
 export const userSlice = createSlice({
   name: "userReducer",
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.user = [...action.payload];
+    setEmployees: (state, action) => {
+      state.employees = action.payload;
     },
   },
 });
 
-export const registerUser = (
-  name,
-  email,
-  password,
-  setLoading,
-  toast,
-  navigate
-) => {
-  return async () => {
+export const getEmployees = () => {
+  return async (dispatch) => {
     try {
-      setLoading(true);
-      const res = await axios.post(`${URL_API}/register`, {
-        name,
-        email,
-        password,
+      const token = localStorage.getItem("access_token");
+      const res = await axios.get(`${URL_API}/read-user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-      console.log(res);
 
-      if (res.data.access_token) {
-        toast({
-          title: "Register Success",
-          description: res?.data?.message,
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
-        navigate("/");
-      } else {
-        throw new Error(
-          res?.data?.message || "An error occurred while registering"
-        );
+      if (res.data.status === 200) {
+        const filteredData = res.data.data.filter((user) => user.level !== 1);
+        dispatch(setEmployees(filteredData));
       }
     } catch (error) {
-      toast({
-        title: "Register Failed",
-        description: error.message,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    } finally {
-      setLoading(false);
+      console.log(error);
     }
   };
 };
 
-export const { setUser } = userSlice.actions;
+export const { setEmployees } = userSlice.actions;
 
 export default userSlice.reducer;
