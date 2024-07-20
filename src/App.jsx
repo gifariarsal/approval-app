@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess, setUser } from "./redux/reducer/authSlice";
-import { LoginPage, RegisterPage } from "./pages";
+import { AdminPage, LoginPage, RegisterPage } from "./pages";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ function App() {
         </>
       )}
       {login && user.level === 1 && (
-        <Route path="/admin" element={<h1>Admin Dashboard</h1>} />
+        <Route path="/admin" element={<AdminPage />} />
       )}
       {login && user.level === 2 && (
         <Route path="/verifier" element={<h1>Verifier Dashboard</h1>} />
