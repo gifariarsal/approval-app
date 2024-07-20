@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoNewspaperOutline, IoPeopleOutline } from "react-icons/io5";
-import DashboardLayout from "../components/common/DashboardLayout";
+import DashboardLayout from "../components/dashboard/DashboardLayout";
+import EmployeeDashboard from "../components/dashboard/EmployeeDashboard";
 
 const VerifierPage = () => {
   const [activePage, setActivePage] = useState("employee");
@@ -20,7 +21,7 @@ const VerifierPage = () => {
   const renderVerifierPage = () => {
     switch (activePage) {
       case "employee":
-        return <p>Employee</p>;
+        return <EmployeeDashboard />;
       case "permission":
         return <p>Permission</p>;
       default:

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { IoNewspaperOutline, IoPersonOutline } from "react-icons/io5";
-import DashboardLayout from '../components/common/DashboardLayout';
+import DashboardLayout from "../components/dashboard/DashboardLayout";
 
 const EmployeePage = () => {
   const [activePage, setActivePage] = useState("permission");
@@ -29,8 +29,11 @@ const EmployeePage = () => {
   };
 
   return (
-    <DashboardLayout menuItems={menuItems} renderedPage={() => renderEmployeePage()} />
-  )
-}
+    <DashboardLayout
+      menuItems={menuItems}
+      renderedPage={() => renderEmployeePage()}
+    />
+  );
+};
 
-export default EmployeePage
+export default EmployeePage;

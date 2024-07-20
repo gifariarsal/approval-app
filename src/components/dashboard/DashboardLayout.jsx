@@ -1,7 +1,7 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
 import React from "react";
 import SidebarMenu from "./SidebarMenu";
-import Navbar from "./Navbar";
+import Navbar from "../common/Navbar";
 
 const DashboardLayout = ({ menuItems, renderedPage }) => {
   return (
@@ -28,7 +28,7 @@ const DashboardLayout = ({ menuItems, renderedPage }) => {
             ))}
           </Stack>
         </Box>
-        <Box w={"full"} ml={{ md: "280px" }} mt={{ base: "116px", md: "60px" }}>
+        <Box w={"full"} ml={{ md: "280px" }} mt={{ base: "120px", md: "60px" }}>
           {renderedPage()}
         </Box>
       </Flex>

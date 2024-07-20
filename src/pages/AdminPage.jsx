@@ -4,7 +4,7 @@ import {
   IoShieldCheckmarkOutline,
   IoNewspaperOutline,
 } from "react-icons/io5";
-import DashboardLayout from "../components/common/DashboardLayout";
+import DashboardLayout from "../components/dashboard/DashboardLayout";
 
 const AdminPage = () => {
   const [activePage, setActivePage] = useState("employee");
