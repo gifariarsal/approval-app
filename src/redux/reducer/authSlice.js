@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const URL_API = import.meta.env.VITE_API_BASE_URL;
+const URL_API = "https://catatan.sidak.co.id/api";
 
 const initialState = {
   user: {
@@ -43,17 +43,20 @@ export const login = (email, password, setLoading, toast, navigate) => {
 
       if (res.data.status === true) {
         const access_token = res.data.access_token;
-        const userData = res.data.data;
+        const { id, name, email, level } = res.data.data;
 
-        sessionStorage.setItem("access_token", access_token);
-        sessionStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("access_token", access_token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ id, name, email, level })
+        );
 
-        await dispatch(setUser(userData));
+        await dispatch(setUser({ id, name, email, level }));
         await dispatch(loginSuccess());
 
-        if (userData.level === 1) {
+        if (level === 1) {
           navigate("/admin");
-        } else if (userData.level === 2) {
+        } else if (level === 2) {
           navigate("/verifier");
         } else {
           navigate("/employee");
@@ -85,8 +88,8 @@ export const login = (email, password, setLoading, toast, navigate) => {
 export const logout = (toast, navigate) => {
   return async (dispatch) => {
     try {
-      sessionStorage.removeItem("access_token");
-      sessionStorage.removeItem("user");
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("user");
       dispatch(logoutSuccess());
       toast({
         title: "Logout Success",

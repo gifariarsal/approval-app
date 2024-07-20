@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const userFromStorage = JSON.parse(sessionStorage.getItem("user"));
+      const userFromStorage = JSON.parse(localStorage.getItem("user"));
       if (userFromStorage) {
         dispatch(setUser(userFromStorage));
         dispatch(loginSuccess());
