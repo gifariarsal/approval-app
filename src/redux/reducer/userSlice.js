@@ -79,6 +79,49 @@ export const promoteToVerifier = (id, toast) => {
   };
 };
 
+export const addVerifier = (
+  name,
+  email,
+  password,
+  setLoading,
+  toast,
+  navigate
+) => {
+  return async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post(`${URL_API}/add-verificator`, {
+        name,
+        email,
+        password,
+      });
+
+      if (res.data.access_token) {
+        toast({
+          title: "Verifier Added",
+          description: res?.data?.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        navigate("/");
+      } else {
+        throw new Error(res?.data?.message || "An error occurred");
+      }
+    } catch (error) {
+      toast({
+        title: "Failed to Add Verifier",
+        description: error.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+};
+
 export const { setEmployees, setLoading } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -51,7 +51,6 @@ export const registerUser = (
         email,
         password,
       });
-      console.log(res);
 
       if (res.data.access_token) {
         toast({
