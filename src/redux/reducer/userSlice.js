@@ -79,24 +79,26 @@ export const promoteToVerifier = (id, toast) => {
   };
 };
 
-export const addVerifier = (
-  name,
-  email,
-  password,
-  setLoading,
-  toast,
-  navigate
-) => {
+export const addVerifier = (name, email, password, setLoading, toast) => {
   return async () => {
     try {
       setLoading(true);
-      const res = await axios.post(`${URL_API}/add-verificator`, {
-        name,
-        email,
-        password,
-      });
+      const token = localStorage.getItem("access_token");
+      const res = await axios.post(
+        `${URL_API}/add-verificator`,
+        {
+          name,
+          email,
+          password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      if (res.data.access_token) {
+      if (res.data.status === true) {
         toast({
           title: "Verifier Added",
           description: res?.data?.message,
@@ -104,14 +106,13 @@ export const addVerifier = (
           duration: 3000,
           isClosable: true,
         });
-        navigate("/");
       } else {
         throw new Error(res?.data?.message || "An error occurred");
       }
     } catch (error) {
       toast({
         title: "Failed to Add Verifier",
-        description: error.message,
+        description: error?.message,
         status: "error",
         duration: 3000,
         isClosable: true,
