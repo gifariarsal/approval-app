@@ -3,16 +3,16 @@ import axios from "axios";
 const URL_API = "https://catatan.sidak.co.id/api";
 
 const initialState = {
-  permittions: [],
+  permissions: [],
   loading: false,
 };
 
-export const permittionSlice = createSlice({
-  name: "permittionReducer",
+export const permissionSlice = createSlice({
+  name: "permissionReducer",
   initialState,
   reducers: {
-    setPermittions: (state, action) => {
-      state.permittions = action.payload;
+    setPermissions: (state, action) => {
+      state.permissions = action.payload;
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
@@ -20,7 +20,7 @@ export const permittionSlice = createSlice({
   },
 });
 
-export const getPermittions = () => {
+export const getPermissions = () => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
@@ -31,11 +31,11 @@ export const getPermittions = () => {
         },
       });
 
-      const sortedPermittions = res.data.data.sort((a, b) => {
+      const sortedPermissions = res.data.data.sort((a, b) => {
         return new Date(b.created_at) - new Date(a.created_at);
       });
 
-      dispatch(setPermittions(sortedPermittions));
+      dispatch(setPermissions(sortedPermissions));
     } catch (error) {
       console.log(error);
     } finally {
@@ -44,6 +44,6 @@ export const getPermittions = () => {
   };
 };
 
-export const { setPermittions, setLoading } = permittionSlice.actions;
+export const { setPermissions, setLoading } = permissionSlice.actions;
 
-export default permittionSlice.reducer;
+export default permissionSlice.reducer;

@@ -3,13 +3,13 @@ import { IoNewspaperOutline, IoPersonOutline } from "react-icons/io5";
 import DashboardLayout from "../components/dashboard/DashboardLayout";
 
 const EmployeePage = () => {
-  const [activePage, setActivePage] = useState("permittion");
+  const [activePage, setActivePage] = useState("permission");
 
   const menuItems = [
     {
-      name: "Permittion",
+      name: "Permission",
       icon: IoNewspaperOutline,
-      onClick: () => setActivePage("permittion"),
+      onClick: () => setActivePage("permission"),
     },
     {
       name: "Account",
@@ -19,8 +19,8 @@ const EmployeePage = () => {
   ];
   const renderEmployeePage = () => {
     switch (activePage) {
-      case "permittion":
-        return <p>permittion</p>;
+      case "permission":
+        return <p>permission</p>;
       case "account":
         return <p>Account</p>;
       default:

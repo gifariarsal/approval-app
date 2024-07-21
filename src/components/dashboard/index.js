@@ -1,11 +1,11 @@
 import DashboardLayout from "./DashboardLayout";
 import EmployeeDashboard from "./EmployeeDashboard";
 import VerifierDashboard from "./VerifierDashboard";
-import PermittionDashboard from "./PermittionDashboard";
+import PermissionDashboard from "./PermissionDashboard";
 
 export {
   DashboardLayout,
   EmployeeDashboard,
   VerifierDashboard,
-  PermittionDashboard,
+  PermissionDashboard,
 };

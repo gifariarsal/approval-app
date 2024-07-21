@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DashboardPage from "./DashboardPage";
 import { useDispatch, useSelector } from "react-redux";
-import { getPermittions } from "../../redux/reducer/permittionSlice";
+import { getPermissions } from "../../redux/reducer/permissionSlice";
 import {
   Table,
   TableContainer,
@@ -16,19 +16,19 @@ import {
 import LoadingSpinner from "../common/LoadingSpinner";
 import NoDataFound from "../common/NoDataFound";
 import dateFormatter from "../../utils/dateFormatter";
-import PermittionDetails from "../permittion/PermittionDetails";
+import PermissionDetails from "../permission/PermissionDetails";
 
-const PermittionDashboard = () => {
+const PermissionDashboard = () => {
   const dispatch = useDispatch();
-  const { permittions, loading } = useSelector((state) => state.permittion);
+  const { permissions, loading } = useSelector((state) => state.permission);
   const { user } = useSelector((state) => state.auth);
   const { employees } = useSelector((state) => state.user);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedPermition, setSelectedPermition] = useState(null);
+  const [selectedPermission, setSelectedPermission] = useState(null);
 
   useEffect(() => {
-    dispatch(getPermittions());
+    dispatch(getPermissions());
   }, [dispatch]);
 
   const getUserName = (userId) => {
@@ -36,7 +36,7 @@ const PermittionDashboard = () => {
     return employee ? employee.name : "Unknown User";
   };
 
-  const handlePermittionClick = ({
+  const handlePermissionClick = ({
     created_at,
     userId,
     subject,
@@ -45,7 +45,7 @@ const PermittionDashboard = () => {
     const userName = getUserName(userId);
     const date = dateFormatter(created_at);
 
-    setSelectedPermition({
+    setSelectedPermission({
       date,
       userName,
       subject,
@@ -55,10 +55,10 @@ const PermittionDashboard = () => {
   };
 
   return (
-    <DashboardPage title="Permittion">
+    <DashboardPage title="Permission">
       {loading ? (
         <LoadingSpinner />
-      ) : permittions.length === 0 ? (
+      ) : permissions.length === 0 ? (
         <NoDataFound />
       ) : (
         <TableContainer>
@@ -80,13 +80,13 @@ const PermittionDashboard = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {permittions &&
-                permittions.map(
+              {permissions &&
+                permissions.map(
                   ({ id, created_at, userId, subject, description }, index) => (
                     <Tr
                       key={id}
                       onClick={() =>
-                        handlePermittionClick({
+                        handlePermissionClick({
                           created_at,
                           userId,
                           subject,
@@ -126,18 +126,18 @@ const PermittionDashboard = () => {
           </Table>
         </TableContainer>
       )}
-      {selectedPermition && (
-        <PermittionDetails
+      {selectedPermission && (
+        <PermissionDetails
           isOpen={isOpen}
           onClose={onClose}
-          date={selectedPermition.date}
-          userName={selectedPermition.userName}
-          subject={selectedPermition.subject}
-          description={selectedPermition.description}
+          date={selectedPermission.date}
+          userName={selectedPermission.userName}
+          subject={selectedPermission.subject}
+          description={selectedPermission.description}
         />
       )}
     </DashboardPage>
   );
 };
 
-export default PermittionDashboard;
+export default PermissionDashboard;

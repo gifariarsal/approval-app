@@ -7,7 +7,7 @@ import {
 import {
   DashboardLayout,
   EmployeeDashboard,
-  PermittionDashboard,
+  PermissionDashboard,
   VerifierDashboard,
 } from "../components/dashboard";
 
@@ -26,9 +26,9 @@ const AdminPage = () => {
       onClick: () => setActivePage("verifier"),
     },
     {
-      name: "Permittion",
+      name: "Permission",
       icon: IoNewspaperOutline,
-      onClick: () => setActivePage("permittion"),
+      onClick: () => setActivePage("permission"),
     },
   ];
 
@@ -38,8 +38,8 @@ const AdminPage = () => {
         return <EmployeeDashboard />;
       case "verifier":
         return <VerifierDashboard />;
-      case "permittion":
-        return <PermittionDashboard />;
+      case "permission":
+        return <PermissionDashboard />;
       default:
         return null;
     }

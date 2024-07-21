@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const PermittionDetails = ({
+const PermissionDetails = ({
   isOpen,
   onClose,
   date,
@@ -24,12 +24,12 @@ const PermittionDetails = ({
       <ModalContent>
         <ModalHeader>
           <Text fontSize="xl" fontWeight={700}>
-            Permittion Details
+            Permission Details
           </Text>
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box mb={4}>
+          <Box>
             <Text fontSize={{ base: "xs", md: "sm" }} color="brand.primary600">
               Date
             </Text>
@@ -37,7 +37,7 @@ const PermittionDetails = ({
               {date}
             </Text>
           </Box>
-          <Box mb={2}>
+          <Box my={2}>
             <Text fontSize={{ base: "xs", md: "sm" }} color="brand.primary600">
               Name
             </Text>
@@ -45,7 +45,7 @@ const PermittionDetails = ({
               {userName}
             </Text>
           </Box>
-          <Box mb={4}>
+          <Box>
             <Text fontSize={{ base: "xs", md: "sm" }} color="brand.primary600">
               Subject
             </Text>
@@ -53,7 +53,7 @@ const PermittionDetails = ({
               {subject}
             </Text>
           </Box>
-          <Box mb={4}>
+          <Box my={4}>
             <Text fontSize={{ base: "xs", md: "sm" }} color="brand.primary600">
               Description
             </Text>
@@ -65,4 +65,4 @@ const PermittionDetails = ({
   );
 };
 
-export default PermittionDetails;
+export default PermissionDetails;

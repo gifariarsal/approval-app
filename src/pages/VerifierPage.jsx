@@ -12,17 +12,17 @@ const VerifierPage = () => {
       onClick: () => setActivePage("employee"),
     },
     {
-      name: "Permittion",
+      name: "Permission",
       icon: IoNewspaperOutline,
-      onClick: () => setActivePage("permittion"),
+      onClick: () => setActivePage("permission"),
     },
   ];
   const renderVerifierPage = () => {
     switch (activePage) {
       case "employee":
         return <EmployeeDashboard />;
-      case "permittion":
-        return <p>permittion</p>;
+      case "permission":
+        return <p>permission</p>;
       default:
         return null;
     }
