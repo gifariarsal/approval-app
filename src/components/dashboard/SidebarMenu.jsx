@@ -17,7 +17,7 @@ const SidebarMenu = ({ onClick, icon, name }) => {
           <Icon as={icon} w={6} h={6} />
           <Text
             display={{ base: "none", md: "block" }}
-            fontSize={{ base: "lg", md: "18" }}
+            fontSize={{ base: "lg", md: "18", xl: "20" }}
             fontWeight="bold"
             ml={2}
           >

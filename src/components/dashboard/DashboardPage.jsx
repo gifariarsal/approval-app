@@ -7,7 +7,7 @@ const DashboardPage = ({ title, children }) => {
       w="full"
       p={4}
       rounded={{ base: "lg", md: "xl" }}
-      minH={{ md: "calc(100vh - 60px)" }}
+      minH={{ base: "calc(100vh - 120px)", md: "calc(100vh - 60px)" }}
       bg="base"
     >
       <Box
@@ -16,10 +16,15 @@ const DashboardPage = ({ title, children }) => {
         py={4}
         px={{ base: 3, md: 6 }}
       >
-        <Text fontSize={{ base: "xl", lg: "2xl" }} fontWeight="semibold">
+        <Text fontSize={{ base: "2xl", lg: "3xl" }} fontWeight="semibold">
           {title}
         </Text>
-        <Box mt={4} w="full" minH="calc(100vh - 120px)" bg="brand.primary50">
+        <Box
+          mt={4}
+          w="full"
+          minH={{ base: "calc(100vh - 240px)", md: "calc(100vh - 186px)" }}
+          bg="brand.primary50"
+        >
           {children}
         </Box>
       </Box>

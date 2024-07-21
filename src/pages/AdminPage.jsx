@@ -6,6 +6,7 @@ import {
 } from "react-icons/io5";
 import DashboardLayout from "../components/dashboard/DashboardLayout";
 import EmployeeDashboard from "../components/dashboard/EmployeeDashboard";
+import PermittionDashboard from "../components/dashboard/PermittionDashboard";
 
 const AdminPage = () => {
   const [activePage, setActivePage] = useState("employee");
@@ -22,9 +23,9 @@ const AdminPage = () => {
       onClick: () => setActivePage("verifier"),
     },
     {
-      name: "Permission",
+      name: "Permittion",
       icon: IoNewspaperOutline,
-      onClick: () => setActivePage("permission"),
+      onClick: () => setActivePage("permittion"),
     },
   ];
   const renderAdminPage = () => {
@@ -33,8 +34,8 @@ const AdminPage = () => {
         return <EmployeeDashboard />;
       case "verifier":
         return <p>History</p>;
-      case "permission":
-        return <p>Payroll</p>;
+      case "permittion":
+        return <PermittionDashboard />;
       default:
         return null;
     }

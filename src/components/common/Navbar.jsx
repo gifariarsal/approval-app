@@ -34,12 +34,9 @@ const Navbar = () => {
         pos="fixed"
         zIndex={100}
         w="full"
-        bg="white"
-        color="#1c1c1c"
+        bg="brand.primary50"
+        boxShadow="md"
         minH="60px"
-        borderBottom={1}
-        borderStyle="solid"
-        borderColor="#7F8BA5"
         align="center"
         display="flex"
         justifyContent="space-between"
@@ -47,6 +44,7 @@ const Navbar = () => {
       >
         <Image
           src={Logo}
+          alt="logo"
           h={isMobile ? "24px" : "32px"}
           _hover={{ filter: "brightness(150%)", transition: "300ms" }}
         />
@@ -56,7 +54,11 @@ const Navbar = () => {
             src={user.avatar}
             size={{ base: "xs", md: "sm" }}
           />
-          <Text mr={{ base: 0, md: 2 }} fontSize={{ base: "sm", md: "md" }}>
+          <Text
+            color="brand.primary900"
+            mr={{ base: 0, md: 2 }}
+            fontSize={{ base: "sm", md: "md" }}
+          >
             Hi, {user.name}
           </Text>
           <Button

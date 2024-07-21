@@ -11,15 +11,15 @@ import {
   Td,
   TableContainer,
   Text,
+  Spinner,
+  Center,
 } from "@chakra-ui/react";
 import getRole from "../../utils/getRole";
 
 const EmployeeDashboard = () => {
   const dispatch = useDispatch();
-  const { employees } = useSelector((state) => state.user);
+  const { employees, loading } = useSelector((state) => state.user);
   const { user } = useSelector((state) => state.auth);
-
-  console.log(user);
 
   useEffect(() => {
     dispatch(getEmployees());
@@ -27,50 +27,71 @@ const EmployeeDashboard = () => {
 
   return (
     <DashboardPage title="Employees">
-      <TableContainer>
-        <Table variant="striped" size={{ base: "sm", md: "md" }}>
-          <Thead>
-            <Tr>
-              <Th>
-                <Text fontSize={{ base: "sm", md: "md" }}>No</Text>
-              </Th>
-              <Th>
-                <Text fontSize={{ base: "sm", md: "md" }}>Nama</Text>
-              </Th>
-              <Th>
-                <Text fontSize={{ base: "sm", md: "md" }}>Email</Text>
-              </Th>
-              {user.level === 1 && (
+      {loading ? (
+        <Center>
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="brand.primary500"
+            color="brand.primary900"
+            size={{ base: "md", md: "xl" }}
+          />
+        </Center>
+      ) : employees.length === 0 ? (
+        <Center>
+          <Text fontSize={{ base: "sm", md: "lg" }} color="brand.primary600">
+            No data found
+          </Text>
+        </Center>
+      ) : (
+        <TableContainer>
+          <Table variant="striped" size={{ base: "sm", md: "md" }}>
+            <Thead>
+              <Tr>
                 <Th>
-                  <Text fontSize={{ base: "sm", md: "md" }}>Role</Text>
+                  <Text fontSize={{ base: "sm", md: "md" }}>No</Text>
                 </Th>
-              )}
-            </Tr>
-          </Thead>
-          <Tbody>
-            {employees.map((emp, index) => (
-              <Tr key={emp.id}>
-                <Td>
-                  <Text fontSize={{ base: "sm", md: "md" }}>{index + 1}</Text>
-                </Td>
-                <Td>
-                  <Text fontSize={{ base: "sm", md: "md" }}>{emp.name}</Text>
-                </Td>
-                <Td>
-                  <Text fontSize={{ base: "sm", md: "md" }}>{emp.email}</Text>
-                </Td>
+                <Th>
+                  <Text fontSize={{ base: "sm", md: "md" }}>Nama</Text>
+                </Th>
+                <Th>
+                  <Text fontSize={{ base: "sm", md: "md" }}>Email</Text>
+                </Th>
                 {user.level === 1 && (
-                  <Td>
-                    <Text fontSize={{ base: "sm", md: "md" }}>
-                      {getRole(emp.level)}
-                    </Text>
-                  </Td>
+                  <Th>
+                    <Text fontSize={{ base: "sm", md: "md" }}>Role</Text>
+                  </Th>
                 )}
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+            </Thead>
+            <Tbody>
+              {employees &&
+                employees.map(({ id, name, email, level }, index) => (
+                  <Tr key={id}>
+                    <Td>
+                      <Text fontSize={{ base: "sm", md: "md" }}>
+                        {index + 1}
+                      </Text>
+                    </Td>
+                    <Td>
+                      <Text fontSize={{ base: "sm", md: "md" }}>{name}</Text>
+                    </Td>
+                    <Td>
+                      <Text fontSize={{ base: "sm", md: "md" }}>{email}</Text>
+                    </Td>
+                    {user.level === 1 && (
+                      <Td>
+                        <Text fontSize={{ base: "sm", md: "md" }}>
+                          {getRole(level)}
+                        </Text>
+                      </Td>
+                    )}
+                  </Tr>
+                ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
     </DashboardPage>
   );
 };

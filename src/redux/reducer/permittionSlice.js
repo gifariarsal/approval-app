@@ -3,16 +3,16 @@ import axios from "axios";
 const URL_API = "https://catatan.sidak.co.id/api";
 
 const initialState = {
-  employees: [],
+  permittions: [],
   loading: false,
 };
 
-export const userSlice = createSlice({
-  name: "userReducer",
+export const permittionSlice = createSlice({
+  name: "permittionReducer",
   initialState,
   reducers: {
-    setEmployees: (state, action) => {
-      state.employees = action.payload;
+    setPermittions: (state, action) => {
+      state.permittions = action.payload;
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
@@ -20,21 +20,18 @@ export const userSlice = createSlice({
   },
 });
 
-export const getEmployees = () => {
+export const getPermittions = () => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
       const token = localStorage.getItem("access_token");
-      const res = await axios.get(`${URL_API}/read-user`, {
+      const res = await axios.get(`${URL_API}/read-permittion`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (res.data.status === 200) {
-        const filteredData = res.data.data.filter((user) => user.level !== 1);
-        dispatch(setEmployees(filteredData));
-      }
+      dispatch(setPermittions(res.data.data));
     } catch (error) {
       console.log(error);
     } finally {
@@ -43,6 +40,6 @@ export const getEmployees = () => {
   };
 };
 
-export const { setEmployees, setLoading } = userSlice.actions;
+export const { setPermittions, setLoading } = permittionSlice.actions;
 
-export default userSlice.reducer;
+export default permittionSlice.reducer;
