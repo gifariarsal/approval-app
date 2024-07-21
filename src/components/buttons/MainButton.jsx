@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
 
-const MainButton = ({ content, loading, onClick, width = "100%" }) => {
+const MainButton = ({ content, loading, disabled, onClick, width = "100%" }) => {
   return (
     <Button
       type="submit"
@@ -15,6 +15,7 @@ const MainButton = ({ content, loading, onClick, width = "100%" }) => {
       color="white"
       bgColor="brand.primary900"
       isLoading={loading}
+      isDisabled={disabled}
       _hover={{ bgColor: "brand.primary800" }}
       _active={{ bgColor: "brand.primary700" }}
     >

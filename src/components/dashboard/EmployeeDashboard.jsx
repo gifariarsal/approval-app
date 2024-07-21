@@ -1,38 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DashboardPage from "./DashboardPage";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployees, promoteToVerifier } from "../../redux/reducer/userSlice";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Text,
-  Spinner,
-  Center,
-  useToast,
-  Flex,
-  Box,
-} from "@chakra-ui/react";
+import { getEmployees } from "../../redux/reducer/userSlice";
+import { Spinner, Center, Text, useDisclosure } from "@chakra-ui/react";
 import getRole from "../../utils/getRole";
-import { IoKeyOutline } from "react-icons/io5";
+import TableComponent from "../common/TableComponent";
+import EmployeeDetails from "../employee/EmployeeDetails";
+import dateFormatter from "../../utils/dateFormatter";
 
 const EmployeeDashboard = () => {
   const dispatch = useDispatch();
-  const toast = useToast();
   const { employees, loading } = useSelector((state) => state.user);
   const { user } = useSelector((state) => state.auth);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   useEffect(() => {
     dispatch(getEmployees());
   }, [dispatch]);
 
-  const handlePromote = (id) => {
-    dispatch(promoteToVerifier(id, toast));
+  const handleRowClick = (employee) => {
+    setSelectedEmployee(employee);
+    onOpen();
   };
+
+  const headers = ["No", "Name", "Email", user.level === 1 && "Role"].filter(
+    Boolean
+  );
+
+  const data = employees.map((employee, index) => ({
+    id: employee.id,
+    no: index + 1,
+    name: employee.name,
+    email: employee.email,
+    role: getRole(employee.level),
+    level: employee.level,
+    verifiedDate: employee.email_verified_at
+      ? dateFormatter(employee.email_verified_at)
+      : "Not yet verified",
+  }));
 
   return (
     <DashboardPage title="Employees">
@@ -53,71 +59,19 @@ const EmployeeDashboard = () => {
           </Text>
         </Center>
       ) : (
-        <TableContainer>
-          <Table variant="striped" size={{ base: "sm", md: "md" }}>
-            <Thead>
-              <Tr>
-                <Th>
-                  <Text fontSize={{ base: "sm", md: "md" }}>No</Text>
-                </Th>
-                <Th>
-                  <Text fontSize={{ base: "sm", md: "md" }}>Nama</Text>
-                </Th>
-                <Th>
-                  <Text fontSize={{ base: "sm", md: "md" }}>Email</Text>
-                </Th>
-                {user.level === 1 && (
-                  <Th>
-                    <Text fontSize={{ base: "sm", md: "md" }}>Role</Text>
-                  </Th>
-                )}
-              </Tr>
-            </Thead>
-            <Tbody>
-              {employees &&
-                employees.map(({ id, name, email, level }, index) => (
-                  <Tr key={id}>
-                    <Td>
-                      <Text fontSize={{ base: "sm", md: "md" }}>
-                        {index + 1}
-                      </Text>
-                    </Td>
-                    <Td>
-                      <Text fontSize={{ base: "sm", md: "md" }}>{name}</Text>
-                    </Td>
-                    <Td>
-                      <Text fontSize={{ base: "sm", md: "md" }}>{email}</Text>
-                    </Td>
-                    {user.level === 1 && (
-                      <Td>
-                        <Flex gap={2} wrap="nowrap" alignItems="center">
-                          <Text fontSize={{ base: "sm", md: "md" }}>
-                            {getRole(level)}
-                          </Text>
-                          {level === 3 && (
-                            <Box
-                              as="span"
-                              onClick={() => handlePromote(id)}
-                              p={2}
-                              rounded="full"
-                              cursor="pointer"
-                              _hover={{ bg: "brand.primary300" }}
-                            >
-                              <IoKeyOutline
-                                color="brand.primary500"
-                                size="16px"
-                                title="Promote Verifier"
-                              />
-                            </Box>
-                          )}
-                        </Flex>
-                      </Td>
-                    )}
-                  </Tr>
-                ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
+        <TableComponent
+          headers={headers}
+          data={data}
+          onRowClick={handleRowClick}
+        />
+      )}
+      {selectedEmployee && (
+        <EmployeeDetails
+          isOpen={isOpen}
+          onClose={onClose}
+          employee={selectedEmployee}
+          user={user}
+        />
       )}
     </DashboardPage>
   );

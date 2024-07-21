@@ -150,6 +150,45 @@ export const logout = (toast, navigate) => {
   };
 };
 
+export const updatePassword = (id, password, setLoading, toast) => {
+  return async (dispatch) => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("access_token");
+      const res = await axios.post(
+        `${URL_API}/user-updatepass/${id}`,
+        { password },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data.status === true) {
+        toast({
+          title: "Success",
+          description: res?.data?.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error",
+        description: "Failed to update password",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+};
+
 export const { loginSuccess, logoutSuccess, setUser } = authSlice.actions;
 
 export default authSlice.reducer;

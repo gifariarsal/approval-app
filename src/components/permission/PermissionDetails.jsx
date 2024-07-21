@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import ModalDataComponent from "../common/ModalDataComponent";
 
 const PermissionDetails = ({
   isOpen,
@@ -29,36 +30,10 @@ const PermissionDetails = ({
         </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box>
-            <Text fontSize={{ base: "xs", md: "sm" }} color="brand.primary600">
-              Date
-            </Text>
-            <Text fontSize={{ base: "sm", md: "md" }} fontWeight={600}>
-              {date}
-            </Text>
-          </Box>
-          <Box my={2}>
-            <Text fontSize={{ base: "xs", md: "sm" }} color="brand.primary600">
-              Name
-            </Text>
-            <Text fontSize={{ base: "sm", md: "md" }} fontWeight={600}>
-              {userName}
-            </Text>
-          </Box>
-          <Box>
-            <Text fontSize={{ base: "xs", md: "sm" }} color="brand.primary600">
-              Subject
-            </Text>
-            <Text fontSize={{ base: "sm", md: "md" }} fontWeight={600}>
-              {subject}
-            </Text>
-          </Box>
-          <Box my={4}>
-            <Text fontSize={{ base: "xs", md: "sm" }} color="brand.primary600">
-              Description
-            </Text>
-            <Text fontSize={{ base: "sm", md: "md" }}>{description}</Text>
-          </Box>
+          <ModalDataComponent label="Date" value={date} />
+          <ModalDataComponent label="Name" value={userName} my={2} />
+          <ModalDataComponent label="Subject" value={subject} />
+          <ModalDataComponent label="Description" value={description} my={6} fontWeight="normal" />
         </ModalBody>
       </ModalContent>
     </Modal>
