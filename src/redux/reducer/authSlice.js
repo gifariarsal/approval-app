@@ -8,6 +8,7 @@ const initialState = {
     name: "",
     email: "",
     level: null,
+    isVerified: false,
   },
   login: false,
 };
@@ -17,12 +18,13 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { id, name, email, level } = action.payload;
+      const { id, name, email, level, isVerified } = action.payload;
       state.user = {
         id,
         name,
         email,
         level,
+        isVerified,
       };
     },
     loginSuccess: (state) => {
@@ -88,15 +90,15 @@ export const login = (email, password, setLoading, toast, navigate) => {
 
       if (res.data.status === true) {
         const access_token = res.data.access_token;
-        const { id, name, email, level } = res.data.data;
+        const { id, name, email, level, isVerified } = res.data.data;
 
         localStorage.setItem("access_token", access_token);
         localStorage.setItem(
           "user",
-          JSON.stringify({ id, name, email, level })
+          JSON.stringify({ id, name, email, level, isVerified })
         );
 
-        await dispatch(setUser({ id, name, email, level }));
+        await dispatch(setUser({ id, name, email, level, isVerified }));
         await dispatch(loginSuccess());
 
         if (level === 1) {

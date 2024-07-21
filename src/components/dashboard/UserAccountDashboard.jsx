@@ -12,6 +12,8 @@ import { updatePassword } from "../../redux/reducer/authSlice";
 const UserAccountDashboard = () => {
   const { user } = useSelector((state) => state.auth);
 
+  console.log(user);
+
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -33,12 +35,8 @@ const UserAccountDashboard = () => {
           <ModalDataComponent label="Role" value={getRole(user.level)} />
           <ModalDataComponent label="Email" value={user.email} />
           <ModalDataComponent
-            label="Verified on"
-            value={
-              user.verifiedDate
-                ? dateFormatter(user.verifiedDate)
-                : "Not yet verified"
-            }
+            label="Status"
+            value={user.isVerified ? "Verified" : "Not yet verified"}
           />
         </Grid>
         <Button

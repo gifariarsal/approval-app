@@ -52,12 +52,8 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
             <ModalDataComponent label="Role" value={employee.role} />
             <ModalDataComponent label="Email" value={employee.email} />
             <ModalDataComponent
-              label="Verified on"
-              value={
-                employee.verifiedDate
-                  ? employee.verifiedDate
-                  : "Not yet verified"
-              }
+              label="Status"
+              value={employee.isVerified ? "Verified" : "Not yet verified"}
             />
           </Grid>
           <Divider mt={6} mb={4} />

@@ -6,7 +6,6 @@ import { Spinner, Center, Text, useDisclosure } from "@chakra-ui/react";
 import getRole from "../../utils/getRole";
 import TableComponent from "../common/TableComponent";
 import EmployeeDetails from "../employee/EmployeeDetails";
-import dateFormatter from "../../utils/dateFormatter";
 
 const EmployeeDashboard = () => {
   const dispatch = useDispatch();
@@ -35,9 +34,7 @@ const EmployeeDashboard = () => {
     email: employee.email,
     role: getRole(employee.level),
     level: employee.level,
-    verifiedDate: employee.email_verified_at
-      ? dateFormatter(employee.email_verified_at)
-      : "Not yet verified",
+    isVerified: employee.isVerified,
   }));
 
   return (
