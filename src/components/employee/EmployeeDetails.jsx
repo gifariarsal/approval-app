@@ -70,9 +70,20 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
               gap={4}
               mb={4}
             >
+              <Button
+                variant="solid"
+                rounded="full"
+                colorScheme="yellow"
+                onClick={() => setShowPasswordForm((prev) => !prev)}
+              >
+                <Box display="flex" alignItems="center" gap={2}>
+                  <IoLockClosedOutline />
+                  <Text fontWeight={500}>Reset Password</Text>
+                </Box>
+              </Button>
               {employee.level === 3 && (
                 <Button
-                  variant="ghost"
+                  variant="solid"
                   rounded="full"
                   onClick={() => handlePromote(employee.id)}
                 >
@@ -84,18 +95,6 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
                   </Box>
                 </Button>
               )}
-              <Button
-                variant="ghost"
-                rounded="full"
-                onClick={() => setShowPasswordForm((prev) => !prev)}
-              >
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Box as="span" color="brand.primary600">
-                    <IoLockClosedOutline />
-                  </Box>
-                  <Text fontWeight={500}>Update Password</Text>
-                </Box>
-              </Button>
             </Box>
           )}
           {showPasswordForm && (
