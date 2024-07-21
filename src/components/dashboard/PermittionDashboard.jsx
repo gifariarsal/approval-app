@@ -30,8 +30,6 @@ const PermittionDashboard = () => {
     return employee ? employee.name : "Unknown User";
   };
 
-  console.log(permittions);
-
   return (
     <DashboardPage title="Permittion">
       {loading ? (

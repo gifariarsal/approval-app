@@ -5,7 +5,7 @@ const DashboardPage = ({ title, children }) => {
   return (
     <Box
       w="full"
-      p={4}
+      p={{ base: 2, md: 4 }}
       rounded={{ base: "lg", md: "xl" }}
       minH={{ base: "calc(100vh - 120px)", md: "calc(100vh - 60px)" }}
       bg="base"
@@ -22,7 +22,7 @@ const DashboardPage = ({ title, children }) => {
         <Box
           mt={4}
           w="full"
-          minH={{ base: "calc(100vh - 240px)", md: "calc(100vh - 186px)" }}
+          minH={{ base: "calc(100vh - 216px)", md: "calc(100vh - 186px)" }}
           bg="brand.primary50"
         >
           {children}
