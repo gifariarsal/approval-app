@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import DashboardPage from "./DashboardPage";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployees } from "../../redux/reducer/userSlice";
+import { getEmployees, promoteToVerifier } from "../../redux/reducer/userSlice";
 import {
   Table,
   Thead,
@@ -13,17 +13,26 @@ import {
   Text,
   Spinner,
   Center,
+  useToast,
+  Flex,
+  Box,
 } from "@chakra-ui/react";
 import getRole from "../../utils/getRole";
+import { IoKeyOutline } from "react-icons/io5";
 
 const EmployeeDashboard = () => {
   const dispatch = useDispatch();
+  const toast = useToast();
   const { employees, loading } = useSelector((state) => state.user);
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getEmployees());
   }, [dispatch]);
+
+  const handlePromote = (id) => {
+    dispatch(promoteToVerifier(id, toast));
+  };
 
   return (
     <DashboardPage title="Employees">
@@ -81,9 +90,27 @@ const EmployeeDashboard = () => {
                     </Td>
                     {user.level === 1 && (
                       <Td>
-                        <Text fontSize={{ base: "sm", md: "md" }}>
-                          {getRole(level)}
-                        </Text>
+                        <Flex gap={2} wrap="nowrap" alignItems="center">
+                          <Text fontSize={{ base: "sm", md: "md" }}>
+                            {getRole(level)}
+                          </Text>
+                          {level === 3 && (
+                            <Box
+                              as="span"
+                              onClick={() => handlePromote(id)}
+                              p={2}
+                              rounded="full"
+                              cursor="pointer"
+                              _hover={{ bg: "brand.primary300" }}
+                            >
+                              <IoKeyOutline
+                                color="brand.primary500"
+                                size="16px"
+                                title="Promote Verifier"
+                              />
+                            </Box>
+                          )}
+                        </Flex>
                       </Td>
                     )}
                   </Tr>

@@ -19,7 +19,7 @@ const SidebarMenu = ({ onClick, icon, name }) => {
             display={{ base: "none", md: "block" }}
             fontSize={{ base: "lg", md: "18", xl: "20" }}
             fontWeight="bold"
-            ml={2}
+            ml={4}
           >
             {name}
           </Text>

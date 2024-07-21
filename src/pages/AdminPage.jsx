@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import {
   IoPeopleOutline,
-  IoShieldCheckmarkOutline,
   IoNewspaperOutline,
+  IoKeyOutline,
 } from "react-icons/io5";
-import DashboardLayout from "../components/dashboard/DashboardLayout";
-import EmployeeDashboard from "../components/dashboard/EmployeeDashboard";
-import PermittionDashboard from "../components/dashboard/PermittionDashboard";
+import {
+  DashboardLayout,
+  EmployeeDashboard,
+  PermittionDashboard,
+  VerifierDashboard,
+} from "../components/dashboard";
 
 const AdminPage = () => {
   const [activePage, setActivePage] = useState("employee");
@@ -19,7 +22,7 @@ const AdminPage = () => {
     },
     {
       name: "Verifier",
-      icon: IoShieldCheckmarkOutline,
+      icon: IoKeyOutline,
       onClick: () => setActivePage("verifier"),
     },
     {
@@ -28,12 +31,13 @@ const AdminPage = () => {
       onClick: () => setActivePage("permittion"),
     },
   ];
+
   const renderAdminPage = () => {
     switch (activePage) {
       case "employee":
         return <EmployeeDashboard />;
       case "verifier":
-        return <p>History</p>;
+        return <VerifierDashboard />;
       case "permittion":
         return <PermittionDashboard />;
       default:

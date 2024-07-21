@@ -31,7 +31,11 @@ export const getPermittions = () => {
         },
       });
 
-      dispatch(setPermittions(res.data.data));
+      const sortedPermittions = res.data.data.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+
+      dispatch(setPermittions(sortedPermittions));
     } catch (error) {
       console.log(error);
     } finally {

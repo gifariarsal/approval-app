@@ -1,7 +1,7 @@
 const getRole = (level) => {
   switch (level) {
     case 2:
-      return "Verifikator";
+      return "Verifier";
     case 3:
       return "Employee";
     default:

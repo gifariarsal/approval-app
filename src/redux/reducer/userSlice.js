@@ -43,6 +43,42 @@ export const getEmployees = () => {
   };
 };
 
+export const promoteToVerifier = (id, toast) => {
+  return async () => {
+    try {
+      const token = localStorage.getItem("access_token");
+      const res = await axios.put(
+        `${URL_API}/promote-verificator`,
+        { id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data.status === true) {
+        toast({
+          title: "Success",
+          description: res?.data?.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+};
+
 export const { setEmployees, setLoading } = userSlice.actions;
 
 export default userSlice.reducer;
