@@ -152,7 +152,7 @@ export const logout = (toast, navigate) => {
 };
 
 export const updatePassword = (id, password, setLoading, toast) => {
-  return async (dispatch) => {
+  return async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("access_token");

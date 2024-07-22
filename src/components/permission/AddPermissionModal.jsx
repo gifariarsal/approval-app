@@ -35,7 +35,7 @@ const AddPermissionModal = ({ isOpen, onClose, onSuccess }) => {
         setDescription={setDescription}
         onClick={handleAddPermission}
         loading={loading}
-        disabled={isFormValid}
+        disabled={!isFormValid}
       />
     </ModalComponent>
   );

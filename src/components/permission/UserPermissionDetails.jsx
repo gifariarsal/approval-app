@@ -88,7 +88,6 @@ const UserPermissionDetails = ({
               icon={<IoClose />}
               label="Cancel"
               variant="ghost"
-              colorScheme="blue"
             />
             <ActionButton
               // isLoading={isLoading}

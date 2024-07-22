@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 const URL_API = "https://catatan.sidak.co.id/api";
+const token = localStorage.getItem("access_token");
 
 const initialState = {
   employees: [],
@@ -24,7 +25,6 @@ export const getEmployees = () => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
-      const token = localStorage.getItem("access_token");
       const res = await axios.get(`${URL_API}/read-user`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -47,7 +47,6 @@ export const promoteToVerifier = (id, setIsLoading, toast) => {
   return async () => {
     try {
       setIsLoading(true);
-      const token = localStorage.getItem("access_token");
       const res = await axios.put(
         `${URL_API}/promote-verificator`,
         { id },
@@ -86,7 +85,6 @@ export const addVerifier = (name, email, password, setLoading, toast) => {
   return async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("access_token");
       const res = await axios.post(
         `${URL_API}/add-verificator`,
         {
@@ -130,7 +128,6 @@ export const verifyUser = (id, setLoading, toast) => {
   return async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("access_token");
       const res = await axios.put(
         `${URL_API}/verify-user/${id}`,
         {},
