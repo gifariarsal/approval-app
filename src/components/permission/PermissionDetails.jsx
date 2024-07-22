@@ -1,6 +1,7 @@
 import React from "react";
 import ModalDataComponent from "../common/ModalDataComponent";
 import ModalComponent from "../common/ModalComponent";
+import { Grid } from "@chakra-ui/react";
 
 const PermissionDetails = ({
   isOpen,
@@ -9,6 +10,7 @@ const PermissionDetails = ({
   userName,
   subject,
   description,
+  isApplied,
 }) => {
   return (
     <ModalComponent
@@ -16,13 +18,19 @@ const PermissionDetails = ({
       onClose={onClose}
       title="Permission Details"
     >
-      <ModalDataComponent label="Date" value={date} />
-      <ModalDataComponent label="Name" value={userName} my={2} />
+      <Grid
+        templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
+        gap={4}
+        mb={6}
+      >
+        <ModalDataComponent label="Name" value={userName} />
+        <ModalDataComponent label="Date" value={date} />
+      </Grid>
       <ModalDataComponent label="Subject" value={subject} />
       <ModalDataComponent
         label="Description"
         value={description}
-        my={6}
+        my={3}
         fontWeight="normal"
       />
     </ModalComponent>

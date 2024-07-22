@@ -15,7 +15,7 @@ const AuthLayout = ({ title, children }) => {
         bg="white"
         boxShadow="lg"
         rounded="2xl"
-        w={{ base: "80vw", md: "60vw", lg: "40vw" }}
+        w={{ base: "90vw", md: "60vw", lg: "40vw" }}
       >
         <Box mt={8} display="flex" flexDir="column" alignItems="center" gap={4}>
           <Image w={{ base: "150px", md: "200px" }} src={Logo} alt="logo" />

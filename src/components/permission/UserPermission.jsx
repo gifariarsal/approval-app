@@ -26,7 +26,7 @@ const UserPermission = ({ refresh }) => {
 
   const handlePermissionClick = async (row) => {
     const { id, date, subject, description } = row;
-    await dispatch(checkPermissionStatus(id, setStatus, setPermissionData));
+    await dispatch(checkPermissionStatus(id, setStatus));
     setSelectedPermission({
       date,
       status,

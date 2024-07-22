@@ -111,7 +111,7 @@ export const getUserPermissions = () => {
   };
 };
 
-export const checkPermissionStatus = (id, setStatus, setPermissionData) => {
+export const checkPermissionStatus = (id, setStatus) => {
   return async () => {
     try {
       const token = localStorage.getItem("access_token");
@@ -122,9 +122,8 @@ export const checkPermissionStatus = (id, setStatus, setPermissionData) => {
       });
 
       if (res.data.status === true) {
-        const { status, data } = res.data.data;
+        const { status } = res.data.data;
         setStatus(status);
-        setPermissionData(data);
       } else {
         throw new Error(res.data.message || "An error occurred");
       }
@@ -133,7 +132,6 @@ export const checkPermissionStatus = (id, setStatus, setPermissionData) => {
     }
   };
 };
-
 
 export const { setPermissions, setLoading } = permissionSlice.actions;
 

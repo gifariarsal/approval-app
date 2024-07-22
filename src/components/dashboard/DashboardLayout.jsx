@@ -12,13 +12,17 @@ const DashboardLayout = ({ menuItems, renderedPage }) => {
           pos="fixed"
           bottom={{ base: 0, md: "auto" }}
           zIndex={10}
-          w={{ base: "100%", md: "280px" }}
+          w={{ base: "100%", md: "200px", lg: "280px" }}
           bg="brand.primary900"
           color="brand.primary50"
           minH={{ md: "100vh" }}
-          mt={{ base: "auto", md: "60px" }}
         >
-          <Stack w="full" spacing="2" direction={{ base: "row", md: "column" }}>
+          <Stack
+            w="full"
+            spacing="2"
+            direction={{ base: "row", md: "column" }}
+            mt={{ base: "auto", md: "60px" }}
+          >
             {menuItems.map(({ name, icon, onClick }) => (
               <SidebarMenu
                 key={name}
@@ -29,7 +33,7 @@ const DashboardLayout = ({ menuItems, renderedPage }) => {
             ))}
           </Stack>
         </Box>
-        <Box w={"full"} ml={{ md: "280px" }} mt="60px">
+        <Box w={"full"} ml={{ md: "200px", lg: "280px" }} mt="60px">
           {renderedPage()}
         </Box>
       </Box>

@@ -7,26 +7,26 @@ import {
 } from "../components/dashboard";
 
 const VerifierPage = () => {
-  const [activePage, setActivePage] = useState("employee");
+  const [activePage, setActivePage] = useState("permission");
 
   const menuItems = [
-    {
-      name: "Employee",
-      icon: IoPeopleOutline,
-      onClick: () => setActivePage("employee"),
-    },
     {
       name: "Permission",
       icon: IoNewspaperOutline,
       onClick: () => setActivePage("permission"),
     },
+    {
+      name: "Employee",
+      icon: IoPeopleOutline,
+      onClick: () => setActivePage("employee"),
+    },
   ];
   const renderVerifierPage = () => {
     switch (activePage) {
-      case "employee":
-        return <EmployeeDashboard />;
       case "permission":
         return <PermissionDashboard />;
+      case "employee":
+        return <EmployeeDashboard />;
       default:
         return null;
     }

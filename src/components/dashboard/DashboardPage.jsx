@@ -5,26 +5,26 @@ const DashboardPage = ({ title, children }) => {
   return (
     <Box
       w="full"
-      p={{ base: 2, md: 4 }}
-      rounded={{ base: "lg", md: "xl" }}
+      p={{ base: 2, lg: 4 }}
+      rounded={{ base: "lg", lg: "xl" }}
       minH={{ base: "calc(100vh - 120px)", md: "calc(100vh - 60px)" }}
       bg="base"
     >
       <Box
         bg="brand.primary50"
-        rounded={{ base: "lg", md: "xl" }}
+        rounded={{ base: "lg", lg: "xl" }}
         py={4}
-        px={{ base: 3, md: 6 }}
+        px={{ base: 3, lg: 6 }}
+        minH={{
+          base: "calc(100vh - 132px)",
+          md: "calc(100vh - 80px)",
+          lg: "calc(100vh - 92px)",
+        }}
       >
         <Text fontSize={{ base: "2xl", lg: "3xl" }} fontWeight="semibold">
           {title}
         </Text>
-        <Box
-          mt={4}
-          w="full"
-          minH={{ base: "calc(100vh - 216px)", md: "calc(100vh - 186px)" }}
-          bg="brand.primary50"
-        >
+        <Box mt={4} w="full" bg="brand.primary50">
           {children}
         </Box>
       </Box>

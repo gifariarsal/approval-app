@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DashboardPage from "./DashboardPage";
-import { Box, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, IconButton, Text, useDisclosure } from "@chakra-ui/react";
 import AddPermissionModal from "../permission/AddPermissionModal";
 import ActionButton from "../buttons/ActionButton";
 import { IoAddOutline } from "react-icons/io5";
@@ -16,27 +16,6 @@ const UserPermissionDashboard = () => {
 
   return (
     <DashboardPage title="My Permission">
-      <Box
-        w="full"
-        mt={4}
-        display="flex"
-        justifyContent="justify-between"
-        alignItems="center"
-      >
-        <Box w="60%">
-          <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="semibold">
-            Permission List
-          </Text>
-        </Box>
-        <Box display="flex" alignItems="center" justifyContent="end" w="40%">
-          <ActionButton
-            onClick={onOpen}
-            icon={<IoAddOutline />}
-            label="Add Permission"
-            colorScheme="yellow"
-          />
-        </Box>
-      </Box>
       <Box>
         <UserPermission refresh={refresh} />
       </Box>
@@ -44,6 +23,18 @@ const UserPermissionDashboard = () => {
         isOpen={isOpen}
         onClose={onClose}
         onSuccess={handleSuccess}
+      />
+      <IconButton
+        pos="fixed"
+        title="Add Thread"
+        bottom={{ base: 20, md: 10 }}
+        right={{ base: 6, md: 10 }}
+        onClick={onOpen}
+        zIndex={10}
+        icon={<IoAddOutline size={32} />}
+        size="lg"
+        rounded="full"
+        colorScheme="yellow"
       />
     </DashboardPage>
   );
