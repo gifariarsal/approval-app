@@ -43,9 +43,10 @@ export const getEmployees = () => {
   };
 };
 
-export const promoteToVerifier = (id, toast) => {
+export const promoteToVerifier = (id, setLoading, toast) => {
   return async () => {
     try {
+      setLoading(true);
       const token = localStorage.getItem("access_token");
       const res = await axios.put(
         `${URL_API}/promote-verificator`,
@@ -75,6 +76,8 @@ export const promoteToVerifier = (id, toast) => {
         duration: 3000,
         isClosable: true,
       });
+    } finally {
+      setLoading(false);
     }
   };
 };
@@ -112,6 +115,46 @@ export const addVerifier = (name, email, password, setLoading, toast) => {
     } catch (error) {
       toast({
         title: "Failed to Add Verifier",
+        description: error?.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+};
+
+export const verifyUser = (id, setLoading, toast) => {
+  return async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("access_token");
+      const res = await axios.put(
+        `${URL_API}/verify-user/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.data.status === true) {
+        toast({
+          title: "User Verified",
+          description: res?.data?.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        throw new Error(res?.data?.message || "Already Verified");
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Failed to Verify User",
         description: error?.message,
         status: "error",
         duration: 3000,

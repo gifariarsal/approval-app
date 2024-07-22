@@ -14,7 +14,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { promoteToVerifier } from "../../redux/reducer/userSlice";
+import { promoteToVerifier, verifyUser } from "../../redux/reducer/userSlice";
 import { updatePassword } from "../../redux/reducer/authSlice";
 import { IoKeyOutline, IoLockClosedOutline } from "react-icons/io5";
 import ModalDataComponent from "../common/ModalDataComponent";
@@ -29,14 +29,17 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
   const [loading, setLoading] = useState(false);
 
   const handlePromote = async (id) => {
-    await dispatch(promoteToVerifier(id, toast));
-    onClose();
+    await dispatch(promoteToVerifier(id, setLoading, toast));
   };
 
   const handleUpdatePassword = async () => {
     await dispatch(updatePassword(employee.id, password, setLoading, toast));
     setPassword("");
     setShowPasswordForm(false);
+  };
+
+  const handleVerifyUser = async (id) => {
+    await dispatch(verifyUser(id, setLoading, toast));
     onClose();
   };
 
@@ -54,11 +57,13 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
             <ModalDataComponent
               label="Status"
               value={employee.isVerified ? "Verified" : "Not yet verified"}
+              color={employee.isVerified ? "green.600" : "red.600"}
             />
           </Grid>
           <Divider mt={6} mb={4} />
           {user.level === 1 && (
             <Box
+              w="full"
               display="flex"
               flexDir={{ base: "column", md: "row" }}
               justifyContent="space-between"
@@ -66,7 +71,25 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
               gap={4}
               mb={4}
             >
+              {employee.level === 3 && (
+                <Button
+                  w={{ base: "full", md: "auto" }}
+                  variant="solid"
+                  rounded="full"
+                  onClick={() => handlePromote(employee.id)}
+                  isLoading={loading}
+                  isDisabled={loading}
+                >
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <Box as="span" color="brand.primary600">
+                      <IoKeyOutline />
+                    </Box>
+                    <Text fontWeight={500}>Promote to Verifier</Text>
+                  </Box>
+                </Button>
+              )}
               <Button
+                w={{ base: "full", md: "auto" }}
                 variant="solid"
                 rounded="full"
                 colorScheme="yellow"
@@ -77,21 +100,24 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
                   <Text fontWeight={500}>Reset Password</Text>
                 </Box>
               </Button>
-              {employee.level === 3 && (
-                <Button
-                  variant="solid"
-                  rounded="full"
-                  onClick={() => handlePromote(employee.id)}
-                >
-                  <Box display="flex" alignItems="center" gap={2}>
-                    <Box as="span" color="brand.primary600">
-                      <IoKeyOutline />
-                    </Box>
-                    <Text fontWeight={500}>Promote to Verifier</Text>
-                  </Box>
-                </Button>
-              )}
             </Box>
+          )}
+          {user.level === 2 && (
+            <Button
+              mb={4}
+              w={{ base: "full", md: "auto" }}
+              variant="solid"
+              colorScheme="yellow"
+              rounded="full"
+              isLoading={loading}
+              isDisabled={employee.isVerified}
+              onClick={() => handleVerifyUser(employee.id)}
+            >
+              <Box display="flex" alignItems="center" gap={2}>
+                <IoKeyOutline />
+                <Text fontWeight={500}>Verify User</Text>
+              </Box>
+            </Button>
           )}
           {showPasswordForm && (
             <Box mb={4}>
