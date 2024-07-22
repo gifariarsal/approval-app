@@ -6,7 +6,11 @@ import ActionButton from "../buttons/ActionButton";
 import { IoClose, IoPencilOutline, IoTrashBinOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import PermissionForm from "./PermissionForm";
-import { updatePermission } from "../../redux/reducer/permissionSlice";
+import {
+  cancelPermission,
+  deletePermission,
+  updatePermission,
+} from "../../redux/reducer/permissionSlice";
 
 const UserPermissionDetails = ({
   isOpen,
@@ -25,6 +29,8 @@ const UserPermissionDetails = ({
   const [subjectUpdate, setUpdateSubject] = useState(subject);
   const [descriptionUpdate, setDescriptionUpdate] = useState(description);
   const [loading, setLoading] = useState(false);
+  const [cancelLoading, setCancelLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
@@ -40,6 +46,17 @@ const UserPermissionDetails = ({
     setUpdateSubject("");
     setDescriptionUpdate("");
     setShowUpdateForm(false);
+    onClose();
+    onSuccess();
+  };
+
+  const handleCancelPermission = async (id) => {
+    await dispatch(cancelPermission(id, setCancelLoading, toast));
+    onClose();
+  };
+
+  const handleDeletelPermission = async (id) => {
+    await dispatch(deletePermission(id, setDeleteLoading, toast));
     onClose();
     onSuccess();
   };
@@ -82,17 +99,17 @@ const UserPermissionDetails = ({
         {!showUpdateForm && (
           <>
             <ActionButton
-              // isLoading={isLoading}
-              // isDisabled={isLoading}
-              // onClick={() => handlePromote(employee.id)}
+              isLoading={cancelLoading}
+              isDisabled={cancelLoading}
+              onClick={() => handleCancelPermission(id)}
               icon={<IoClose />}
               label="Cancel"
               variant="ghost"
             />
             <ActionButton
-              // isLoading={isLoading}
-              // isDisabled={isLoading}
-              // onClick={() => handlePromote(employee.id)}
+              isLoading={deleteLoading}
+              isDisabled={deleteLoading}
+              onClick={() => handleDeletelPermission(id)}
               icon={<IoTrashBinOutline />}
               label="Delete"
               variant="ghost"

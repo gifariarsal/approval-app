@@ -134,6 +134,80 @@ export const updatePermission = (
   };
 };
 
+export const cancelPermission = (id, setLoading, toast) => {
+  return async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post(
+        `${URL_API}/cancel/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data.status === true) {
+        toast({
+          title: "Permission Canceled",
+          description: res?.data?.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        throw new Error(res?.data?.message || "An error occurred");
+      }
+    } catch (error) {
+      toast({
+        title: "Failed to cancel permission",
+        description: error?.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+};
+
+export const deletePermission = (id, setLoading, toast) => {
+  return async () => {
+    try {
+      setLoading(true);
+      const res = await axios.delete(`${URL_API}/permittion/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.data.status === true) {
+        toast({
+          title: "Permission Deleted",
+          description: res?.data?.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        throw new Error(res?.data?.message || "An error occurred");
+      }
+    } catch (error) {
+      toast({
+        title: "Failed to delete permission",
+        description: error?.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+};
+
 export const getUserPermissions = () => {
   return async (dispatch) => {
     try {
