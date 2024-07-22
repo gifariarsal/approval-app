@@ -7,11 +7,12 @@ const ActionButton = ({
   onClick,
   icon,
   label,
+  variant = "solid",
   colorScheme = "gray",
 }) => (
   <Button
     w={{ base: "full", md: "auto" }}
-    variant="solid"
+    variant={variant}
     rounded="full"
     colorScheme={colorScheme}
     onClick={onClick}

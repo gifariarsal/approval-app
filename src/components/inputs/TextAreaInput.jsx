@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Textarea } from '@chakra-ui/react';
 import React from 'react'
 
-const TextAreInput = ({ id, name, type, placeholder, value, onChange, isRequired = false, spacing = {} }) => {
+const TextAreaInput = ({ id, name, type, placeholder, value, onChange, isRequired = false, spacing = {} }) => {
   return (
     <FormControl isRequired={isRequired} {...spacing}>
       <FormLabel htmlFor={id}>{name}</FormLabel>
@@ -18,4 +18,4 @@ const TextAreInput = ({ id, name, type, placeholder, value, onChange, isRequired
   );
 }
 
-export default TextAreInput
+export default TextAreaInput

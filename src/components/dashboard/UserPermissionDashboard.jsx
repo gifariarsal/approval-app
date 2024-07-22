@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import DashboardPage from "./DashboardPage";
-import { Box, IconButton, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, IconButton, useDisclosure } from "@chakra-ui/react";
 import AddPermissionModal from "../permission/AddPermissionModal";
-import ActionButton from "../buttons/ActionButton";
 import { IoAddOutline } from "react-icons/io5";
 import UserPermission from "../permission/UserPermission";
 
@@ -15,7 +14,7 @@ const UserPermissionDashboard = () => {
   };
 
   return (
-    <DashboardPage title="My Permission">
+    <DashboardPage title="My Permissions">
       <Box>
         <UserPermission refresh={refresh} />
       </Box>

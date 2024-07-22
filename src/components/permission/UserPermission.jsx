@@ -18,7 +18,6 @@ const UserPermission = ({ refresh }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPermission, setSelectedPermission] = useState(null);
   const [status, setStatus] = useState("");
-  const [permissionData, setPermissionData] = useState(null);
 
   useEffect(() => {
     dispatch(getUserPermissions());
@@ -28,12 +27,18 @@ const UserPermission = ({ refresh }) => {
     const { id, date, subject, description } = row;
     await dispatch(checkPermissionStatus(id, setStatus));
     setSelectedPermission({
+      id,
       date,
       status,
       subject,
       description,
     });
     onOpen();
+  };
+
+  const handleCloseModal = () => {
+    setSelectedPermission(null);
+    onClose();
   };
 
   const headers = ["No", "Date", "Subject", "Status"];
@@ -73,11 +78,13 @@ const UserPermission = ({ refresh }) => {
       {selectedPermission && (
         <UserPermissionDetails
           isOpen={isOpen}
-          onClose={onClose}
+          onClose={handleCloseModal}
+          id={selectedPermission.id}
           date={selectedPermission.date}
           subject={selectedPermission.subject}
           status={status}
           description={selectedPermission.description}
+          onSuccess={() => dispatch(getUserPermissions())}
         />
       )}
     </Box>

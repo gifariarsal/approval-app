@@ -1,11 +1,9 @@
 import { useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import TextInput from "../inputs/TextInput";
-import TextAreInput from "../inputs/TextAreInput";
-import MainButton from "../buttons/MainButton";
 import { useDispatch } from "react-redux";
 import { addPermission } from "../../redux/reducer/permissionSlice";
 import ModalComponent from "../common/ModalComponent";
+import PermissionForm from "./PermissionForm";
 
 const AddPermissionModal = ({ isOpen, onClose, onSuccess }) => {
   const dispatch = useDispatch();
@@ -29,33 +27,16 @@ const AddPermissionModal = ({ isOpen, onClose, onSuccess }) => {
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose} title="Add Permission">
-      <form style={{ marginBottom: "1rem" }}>
-        <TextInput
-          id="subject"
-          name="Subject"
-          type="text"
-          placeholder="Enter subject"
-          value={subject}
-          onChange={setSubject}
-          isRequired
-          spacing={{ mb: "4" }}
-        />
-        <TextAreInput
-          id="description"
-          name="Description"
-          type="description"
-          placeholder="Enter your description"
-          value={description}
-          onChange={setDescription}
-          isRequired
-        />
-        <MainButton
-          content="Submit Permission"
-          onClick={handleAddPermission}
-          loading={loading}
-          disabled={!isFormValid}
-        />
-      </form>
+      <PermissionForm
+        buttonText="Add Permission"
+        subject={subject}
+        setSubject={setSubject}
+        description={description}
+        setDescription={setDescription}
+        onClick={handleAddPermission}
+        loading={loading}
+        disabled={isFormValid}
+      />
     </ModalComponent>
   );
 };
