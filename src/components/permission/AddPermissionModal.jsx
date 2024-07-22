@@ -9,11 +9,12 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import TextInput from "../inputs/TextInput";
+import TextAreInput from "../inputs/TextAreInput";
 import MainButton from "../buttons/MainButton";
 import { useDispatch } from "react-redux";
 import { addPermission } from "../../redux/reducer/permissionSlice";
 
-const AddPermissionModal = ({ isOpen, onClose }) => {
+const AddPermissionModal = ({ isOpen, onClose, onSuccess }) => {
   const dispatch = useDispatch();
   const toast = useToast();
   const [subject, setSubject] = useState("");
@@ -30,6 +31,7 @@ const AddPermissionModal = ({ isOpen, onClose }) => {
     setSubject("");
     setDescription("");
     onClose();
+    if (onSuccess) onSuccess();
   };
 
   return (
@@ -50,7 +52,7 @@ const AddPermissionModal = ({ isOpen, onClose }) => {
               isRequired
               spacing={{ mb: "4" }}
             />
-            <TextInput
+            <TextAreInput
               id="description"
               name="Description"
               type="description"

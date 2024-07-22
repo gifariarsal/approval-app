@@ -87,6 +87,54 @@ export const addPermission = (subject, description, setLoading, toast) => {
   };
 };
 
+export const getUserPermissions = () => {
+  return async (dispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const token = localStorage.getItem("access_token");
+      const res = await axios.get(`${URL_API}/permittion`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const sortedPermissions = res.data.data.sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+
+      dispatch(setPermissions(sortedPermissions));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const checkPermissionStatus = (id, setStatus, setPermissionData) => {
+  return async () => {
+    try {
+      const token = localStorage.getItem("access_token");
+      const res = await axios.get(`${URL_API}/permittion/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.data.status === true) {
+        const { status, data } = res.data.data;
+        setStatus(status);
+        setPermissionData(data);
+      } else {
+        throw new Error(res.data.message || "An error occurred");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+
 export const { setPermissions, setLoading } = permissionSlice.actions;
 
 export default permissionSlice.reducer;

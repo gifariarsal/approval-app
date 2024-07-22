@@ -37,6 +37,7 @@ const UserAccountDashboard = () => {
           <ModalDataComponent
             label="Status"
             value={user.isVerified ? "Verified" : "Not yet verified"}
+            color={user.isVerified ? "green.700" : "red.700"}
           />
         </Grid>
         <ActionButton

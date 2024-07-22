@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DashboardPage from "./DashboardPage";
 import { Box, Text, useDisclosure } from "@chakra-ui/react";
 import AddPermissionModal from "../permission/AddPermissionModal";
 import ActionButton from "../buttons/ActionButton";
 import { IoAddOutline } from "react-icons/io5";
+import UserPermission from "../permission/UserPermission";
 
 const UserPermissionDashboard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [refresh, setRefresh] = useState(false);
+
+  const handleSuccess = () => {
+    setRefresh((prev) => !prev);
+  };
 
   return (
     <DashboardPage title="My Permission">
@@ -14,25 +20,31 @@ const UserPermissionDashboard = () => {
         w="full"
         mt={4}
         display="flex"
-        justifyContent="space-between"
+        justifyContent="justify-between"
         alignItems="center"
-        gap={20}
       >
-        <Text
-          whiteSpace="nowrap"
-          fontSize={{ base: "xl", lg: "2xl" }}
-          fontWeight="semibold"
-        >
-          Permission List
-        </Text>
-        <ActionButton
-          onClick={onOpen}
-          icon={<IoAddOutline />}
-          label="Add Permission"
-          colorScheme="yellow"
-        />
+        <Box w="60%">
+          <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="semibold">
+            Permission List
+          </Text>
+        </Box>
+        <Box display="flex" alignItems="center" justifyContent="end" w="40%">
+          <ActionButton
+            onClick={onOpen}
+            icon={<IoAddOutline />}
+            label="Add Permission"
+            colorScheme="yellow"
+          />
+        </Box>
       </Box>
-      <AddPermissionModal isOpen={isOpen} onClose={onClose} />
+      <Box>
+        <UserPermission refresh={refresh} />
+      </Box>
+      <AddPermissionModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onSuccess={handleSuccess}
+      />
     </DashboardPage>
   );
 };

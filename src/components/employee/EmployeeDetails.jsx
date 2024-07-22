@@ -57,7 +57,7 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
             <ModalDataComponent
               label="Status"
               value={employee.isVerified ? "Verified" : "Not yet verified"}
-              color={employee.isVerified ? "green.600" : "red.600"}
+              color={employee.isVerified ? "green.700" : "red.700"}
             />
           </Grid>
           <Divider mt={6} mb={4} />
