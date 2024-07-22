@@ -18,6 +18,7 @@ const PermissionDashboard = () => {
   const { employees, loading: loadingEmployees } = useSelector(
     (state) => state.user
   );
+  const { user } = useSelector((state) => state.auth);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPermission, setSelectedPermission] = useState(null);
@@ -33,8 +34,10 @@ const PermissionDashboard = () => {
   };
 
   const handlePermissionClick = (row) => {
-    const { date, name: userName, subject, description } = row;
+    const { id, userId, date, name: userName, subject, description } = row;
     setSelectedPermission({
+      userId,
+      id,
       date,
       userName,
       subject,
@@ -72,10 +75,9 @@ const PermissionDashboard = () => {
         <PermissionDetails
           isOpen={isOpen}
           onClose={onClose}
-          date={selectedPermission.date}
-          userName={selectedPermission.userName}
-          subject={selectedPermission.subject}
-          description={selectedPermission.description}
+          verifierId={user.id}
+          level={user.level}
+          {...selectedPermission}
         />
       )}
     </DashboardPage>

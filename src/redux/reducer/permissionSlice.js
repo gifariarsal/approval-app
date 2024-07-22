@@ -258,6 +258,60 @@ export const checkPermissionStatus = (id, setStatus) => {
   };
 };
 
+export const approvePermission = (
+  verificatorId,
+  userId,
+  permittionId,
+  comment,
+  isAccepted,
+  setLoading,
+  toast
+) => {
+  return async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("access_token");
+      const res = await axios.post(
+        `${URL_API}/accept-permittion`,
+        {
+          verificatorId,
+          userId,
+          permittionId,
+          comment,
+          isAccepted,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (res.data.status === true) {
+        toast({
+          title: "Success",
+          description: res?.data?.message,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        throw new Error(res?.data?.message || "An error occurred");
+      }
+    } catch (error) {
+      toast({
+        title: "Failed to approve permission",
+        description: error?.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+};
+
 export const { setPermissions, setLoading } = permissionSlice.actions;
 
 export default permissionSlice.reducer;
