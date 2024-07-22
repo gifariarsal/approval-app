@@ -67,11 +67,7 @@ const UserPermissionDetails = ({
       onClose={onClose}
       title="Permission Details"
     >
-      <Grid
-        templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
-        gap={4}
-        mb={6}
-      >
+      <Grid templateColumns="repeat(2, 1fr)" gap={4} mb={6}>
         <ModalDataComponent label="Date" value={date} />
         <ModalDataComponent label="Status" value={status} />
       </Grid>

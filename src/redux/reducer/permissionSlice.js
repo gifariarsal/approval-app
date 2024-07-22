@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 const URL_API = "https://catatan.sidak.co.id/api";
-const token = localStorage.getItem("access_token");
 
 const initialState = {
   permissions: [],
@@ -25,6 +24,7 @@ export const getPermissions = () => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
+      const token = localStorage.getItem("access_token");
       const res = await axios.get(`${URL_API}/read-permittion`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -48,6 +48,7 @@ export const addPermission = (subject, description, setLoading, toast) => {
   return async () => {
     try {
       setLoading(true);
+      const token = localStorage.getItem("access_token");
       const res = await axios.post(
         `${URL_API}/permittion`,
         {
@@ -96,6 +97,7 @@ export const updatePermission = (
   return async () => {
     try {
       setLoading(true);
+      const token = localStorage.getItem("access_token");
       const res = await axios.put(
         `${URL_API}/permittion/${id}`,
         {
@@ -138,6 +140,7 @@ export const cancelPermission = (id, setLoading, toast) => {
   return async () => {
     try {
       setLoading(true);
+      const token = localStorage.getItem("access_token");
       const res = await axios.post(
         `${URL_API}/cancel/${id}`,
         {},
@@ -177,6 +180,7 @@ export const deletePermission = (id, setLoading, toast) => {
   return async () => {
     try {
       setLoading(true);
+      const token = localStorage.getItem("access_token");
       const res = await axios.delete(`${URL_API}/permittion/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -212,6 +216,7 @@ export const getUserPermissions = () => {
   return async (dispatch) => {
     try {
       dispatch(setLoading(true));
+      const token = localStorage.getItem("access_token");
       const res = await axios.get(`${URL_API}/permittion`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -234,6 +239,7 @@ export const getUserPermissions = () => {
 export const checkPermissionStatus = (id, setStatus) => {
   return async () => {
     try {
+      const token = localStorage.getItem("access_token");
       const res = await axios.get(`${URL_API}/permittion/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,

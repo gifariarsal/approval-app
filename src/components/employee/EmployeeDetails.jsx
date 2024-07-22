@@ -35,7 +35,7 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
 
   return (
     <ModalComponent isOpen={isOpen} onClose={onClose} title="Employee Details">
-      <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
+      <Grid templateColumns="repeat(2, 1fr)" gap={4}>
         <ModalDataComponent label="Name" value={employee.name} />
         <ModalDataComponent label="Role" value={employee.role} />
         <ModalDataComponent label="Email" value={employee.email} />

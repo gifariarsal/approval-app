@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DashboardPage from "./DashboardPage";
 import { useDispatch, useSelector } from "react-redux";
 import { getPermissions } from "../../redux/reducer/permissionSlice";
+import { getEmployees } from "../../redux/reducer/userSlice";
 import { useDisclosure } from "@chakra-ui/react";
 import LoadingSpinner from "../common/LoadingSpinner";
 import NoDataFound from "../common/NoDataFound";
@@ -11,14 +12,19 @@ import TableComponent from "../common/TableComponent";
 
 const PermissionDashboard = () => {
   const dispatch = useDispatch();
-  const { permissions, loading } = useSelector((state) => state.permission);
-  const { employees } = useSelector((state) => state.user);
+  const { permissions, loading: loadingPermissions } = useSelector(
+    (state) => state.permission
+  );
+  const { employees, loading: loadingEmployees } = useSelector(
+    (state) => state.user
+  );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPermission, setSelectedPermission] = useState(null);
 
   useEffect(() => {
     dispatch(getPermissions());
+    dispatch(getEmployees());
   }, [dispatch]);
 
   const getUserName = (userId) => {
@@ -47,9 +53,11 @@ const PermissionDashboard = () => {
     description: permission.description,
   }));
 
+  const isLoading = loadingPermissions || loadingEmployees;
+
   return (
     <DashboardPage title="Permission">
-      {loading ? (
+      {isLoading ? (
         <LoadingSpinner />
       ) : permissions.length === 0 ? (
         <NoDataFound />
