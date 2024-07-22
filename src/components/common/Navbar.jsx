@@ -1,5 +1,4 @@
 import React from "react";
-import Logo from "../../assets/logo.svg";
 import {
   Avatar,
   Box,
@@ -43,7 +42,7 @@ const Navbar = () => {
         px={{ base: 4, md: 8 }}
       >
         <Image
-          src={Logo}
+          src="/logo.svg"
           alt="logo"
           h={isMobile ? "24px" : "32px"}
           _hover={{ filter: "brightness(150%)", transition: "300ms" }}

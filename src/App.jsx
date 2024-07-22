@@ -6,6 +6,7 @@ import {
   AdminPage,
   EmployeePage,
   LoginPage,
+  NotFoundPage,
   RegisterPage,
   VerifierPage,
 } from "./pages";
@@ -48,7 +49,7 @@ function App() {
       {login && user.level === 3 && (
         <Route path="/employee" element={<EmployeePage />} />
       )}
-      <Route path="/*" element={<h1>Not Found</h1>} />
+      <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   );
 }

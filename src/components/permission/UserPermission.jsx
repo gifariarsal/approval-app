@@ -79,12 +79,8 @@ const UserPermission = ({ refresh }) => {
         <UserPermissionDetails
           isOpen={isOpen}
           onClose={handleCloseModal}
-          id={selectedPermission.id}
-          date={selectedPermission.date}
-          subject={selectedPermission.subject}
-          status={status}
-          description={selectedPermission.description}
           onSuccess={() => dispatch(getUserPermissions())}
+          {...selectedPermission}
         />
       )}
     </Box>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Image, Text } from "@chakra-ui/react";
-import Logo from "../../assets/logo.svg";
 
 const AuthLayout = ({ title, children }) => {
   return (
@@ -18,7 +17,11 @@ const AuthLayout = ({ title, children }) => {
         w={{ base: "90vw", md: "60vw", lg: "40vw" }}
       >
         <Box mt={8} display="flex" flexDir="column" alignItems="center" gap={4}>
-          <Image w={{ base: "150px", md: "200px" }} src={Logo} alt="logo" />
+          <Image
+            w={{ base: "150px", md: "200px" }}
+            src="/logo.svg"
+            alt="logo"
+          />
           <Text
             fontSize={{ base: "2xl", md: "3xl" }}
             color="brand.main"
