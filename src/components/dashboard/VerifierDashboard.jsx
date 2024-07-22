@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DashboardPage from "./DashboardPage";
 import { Box, useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import TextInput from "../inputs/TextInput";
 import PasswordInput from "../inputs/PasswordInput";
 import MainButton from "../buttons/MainButton";
@@ -10,7 +9,6 @@ import { addVerifier } from "../../redux/reducer/userSlice";
 
 const VerifierDashboard = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const toast = useToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

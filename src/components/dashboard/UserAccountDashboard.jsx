@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import DashboardPage from "./DashboardPage";
-import { Box, Button, Grid, Text, useToast } from "@chakra-ui/react";
+import { Box, Grid, useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalDataComponent from "../common/ModalDataComponent";
-import dateFormatter from "../../utils/dateFormatter";
 import getRole from "../../utils/getRole";
 import { IoLockClosedOutline } from "react-icons/io5";
 import PasswordForm from "../auth/PasswordForm";
 import { updatePassword } from "../../redux/reducer/authSlice";
+import ActionButton from "../buttons/ActionButton";
 
 const UserAccountDashboard = () => {
   const { user } = useSelector((state) => state.auth);
@@ -30,7 +30,7 @@ const UserAccountDashboard = () => {
   return (
     <DashboardPage title="Account Information">
       <Box w={{ base: "100%", md: "60%" }} mt={4}>
-        <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+        <Grid templateColumns="repeat(2, 1fr)" gap={4} mb={10}>
           <ModalDataComponent label="Name" value={user.name} />
           <ModalDataComponent label="Role" value={getRole(user.level)} />
           <ModalDataComponent label="Email" value={user.email} />
@@ -39,18 +39,12 @@ const UserAccountDashboard = () => {
             value={user.isVerified ? "Verified" : "Not yet verified"}
           />
         </Grid>
-        <Button
-          mt={8}
-          variant="solid"
-          rounded="full"
-          colorScheme="yellow"
+        <ActionButton
           onClick={() => setShowPasswordForm((prev) => !prev)}
-        >
-          <Box display="flex" alignItems="center" gap={2}>
-            <IoLockClosedOutline />
-            <Text fontWeight={500}>Update Password</Text>
-          </Box>
-        </Button>
+          icon={<IoLockClosedOutline />}
+          label="Update Password"
+          colorScheme="yellow"
+        />
         {showPasswordForm && (
           <Box w={{ base: "100%", md: "80%" }} mt={6}>
             <PasswordForm

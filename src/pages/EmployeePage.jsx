@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoNewspaperOutline, IoPersonOutline } from "react-icons/io5";
 import { DashboardLayout, UserAccountDashboard } from "../components/dashboard";
+import UserPermissionDashboard from "../components/dashboard/UserPermissionDashboard";
 
 const EmployeePage = () => {
   const [activePage, setActivePage] = useState("permission");
@@ -20,7 +21,7 @@ const EmployeePage = () => {
   const renderEmployeePage = () => {
     switch (activePage) {
       case "permission":
-        return <p>permission</p>;
+        return <UserPermissionDashboard />;
       case "account":
         return <UserAccountDashboard />;
       default:
