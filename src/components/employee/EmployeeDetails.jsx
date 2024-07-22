@@ -6,11 +6,9 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Button,
   useToast,
   Grid,
   Box,
-  Text,
   Divider,
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
@@ -19,6 +17,7 @@ import { updatePassword } from "../../redux/reducer/authSlice";
 import { IoKeyOutline, IoLockClosedOutline } from "react-icons/io5";
 import ModalDataComponent from "../common/ModalDataComponent";
 import PasswordForm from "../auth/PasswordForm";
+import ActionButton from "../buttons/ActionButton";
 
 const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
   const dispatch = useDispatch();
@@ -27,9 +26,10 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePromote = async (id) => {
-    await dispatch(promoteToVerifier(id, setLoading, toast));
+    await dispatch(promoteToVerifier(id, setIsLoading, toast));
   };
 
   const handleUpdatePassword = async () => {
@@ -69,55 +69,36 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
               justifyContent="space-between"
               alignItems="center"
               gap={4}
-              mb={4}
+              mb={3}
             >
               {employee.level === 3 && (
-                <Button
-                  w={{ base: "full", md: "auto" }}
-                  variant="solid"
-                  rounded="full"
+                <ActionButton
+                  isLoading={isLoading}
+                  isDisabled={isLoading}
                   onClick={() => handlePromote(employee.id)}
-                  isLoading={loading}
-                  isDisabled={loading}
-                >
-                  <Box display="flex" alignItems="center" gap={2}>
-                    <Box as="span" color="brand.primary600">
-                      <IoKeyOutline />
-                    </Box>
-                    <Text fontWeight={500}>Promote to Verifier</Text>
-                  </Box>
-                </Button>
+                  icon={<IoKeyOutline />}
+                  label="Promote to Verifier"
+                />
               )}
-              <Button
-                w={{ base: "full", md: "auto" }}
-                variant="solid"
-                rounded="full"
-                colorScheme="yellow"
+              <ActionButton
                 onClick={() => setShowPasswordForm((prev) => !prev)}
-              >
-                <Box display="flex" alignItems="center" gap={2}>
-                  <IoLockClosedOutline />
-                  <Text fontWeight={500}>Reset Password</Text>
-                </Box>
-              </Button>
+                icon={<IoLockClosedOutline />}
+                label="Reset Password"
+                colorScheme="yellow"
+              />
             </Box>
           )}
           {user.level === 2 && (
-            <Button
-              mb={4}
-              w={{ base: "full", md: "auto" }}
-              variant="solid"
-              colorScheme="yellow"
-              rounded="full"
-              isLoading={loading}
-              isDisabled={employee.isVerified}
-              onClick={() => handleVerifyUser(employee.id)}
-            >
-              <Box display="flex" alignItems="center" gap={2}>
-                <IoKeyOutline />
-                <Text fontWeight={500}>Verify User</Text>
-              </Box>
-            </Button>
+            <Box mb={3}>
+              <ActionButton
+                isLoading={loading}
+                isDisabled={employee.isVerified}
+                onClick={() => handleVerifyUser(employee.id)}
+                icon={<IoKeyOutline />}
+                label="Verify User"
+                colorScheme="yellow"
+              />
+            </Box>
           )}
           {showPasswordForm && (
             <Box mb={4}>

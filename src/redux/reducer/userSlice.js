@@ -43,10 +43,10 @@ export const getEmployees = () => {
   };
 };
 
-export const promoteToVerifier = (id, setLoading, toast) => {
+export const promoteToVerifier = (id, setIsLoading, toast) => {
   return async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const token = localStorage.getItem("access_token");
       const res = await axios.put(
         `${URL_API}/promote-verificator`,
@@ -77,7 +77,7 @@ export const promoteToVerifier = (id, setLoading, toast) => {
         isClosable: true,
       });
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 };
