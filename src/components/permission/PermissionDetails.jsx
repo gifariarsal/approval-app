@@ -74,38 +74,39 @@ const PermissionDetails = ({
         my={3}
         fontWeight="normal"
       />
-      <Divider my={6} />
       {!isApplied && level === 2 && (
-        <form style={{ marginBottom: "1rem", marginTop: "1rem" }}>
-          <RadioGroup onChange={handleRadioChange} value={approved.toString()}>
-            <Stack
-              direction="row"
-              gap={20}
-              mb={4}
+        <>
+          <Divider my={6} />
+          <form style={{ marginBottom: "1rem", marginTop: "1rem" }}>
+            <RadioGroup
+              onChange={handleRadioChange}
+              value={approved.toString()}
             >
-              <Radio value="true" colorScheme="green">
-                Approve
-              </Radio>
-              <Radio value="false" colorScheme="red">
-                Reject
-              </Radio>
-            </Stack>
-          </RadioGroup>
-          <TextAreaInput
-            id="comment"
-            name="Comment"
-            placeholder="Add comment"
-            value={comment}
-            onChange={setComment}
-            isRequired
-          />
-          <MainButton
-            content="Submit"
-            onClick={handleSubmit}
-            loading={loading}
-            disabled={loading || comment === ""}
-          />
-        </form>
+              <Stack direction="row" gap={20} mb={4}>
+                <Radio value="true" colorScheme="green">
+                  Approve
+                </Radio>
+                <Radio value="false" colorScheme="red">
+                  Reject
+                </Radio>
+              </Stack>
+            </RadioGroup>
+            <TextAreaInput
+              id="comment"
+              name="Comment"
+              placeholder="Add comment"
+              value={comment}
+              onChange={setComment}
+              isRequired
+            />
+            <MainButton
+              content="Submit"
+              onClick={handleSubmit}
+              loading={loading}
+              disabled={loading || comment === ""}
+            />
+          </form>
+        </>
       )}
     </ModalComponent>
   );

@@ -56,13 +56,14 @@ const EmployeeDetails = ({ isOpen, onClose, employee, user }) => {
           gap={4}
           mb={3}
         >
-          {employee.level === 3 && (
+          {employee.level === 3 && !showPasswordForm && (
             <ActionButton
               isLoading={isLoading}
               isDisabled={isLoading}
               onClick={() => handlePromote(employee.id)}
               icon={<IoKeyOutline />}
               label="Promote to Verifier"
+              variant="outline"
             />
           )}
           <ActionButton
